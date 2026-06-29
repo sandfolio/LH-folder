@@ -785,7 +785,7 @@
     }
 
     /* ════════════════════════════════════════
-       SCREEN 4 — WELCOME
+       SCREEN 4 — WELCOME (bottom sheet)
     ════════════════════════════════════════ */
     .screen-welcome {
       width: 412px; height: 917px;
@@ -793,94 +793,182 @@
       display: flex;
       flex-direction: column;
       position: relative;
+      overflow: hidden;
     }
 
-    .welcome-hero {
-      background: var(--khabar-600);
-      padding: 52px var(--sp-6) var(--sp-8);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: var(--sp-4);
-      position: relative;
-    }
-    .welcome-hero::after {
-      content: '';
+    /* ── Home feed peek (blurred background) ── */
+    .home-peek {
       position: absolute;
-      bottom: -1px; left: 0; right: 0;
-      height: 20px;
+      inset: 0;
       background: var(--paper);
-      border-radius: 20px 20px 0 0;
+      overflow: hidden;
     }
-    .welcome-hero-logo { width: 140px; filter: brightness(0) invert(1); }
 
-    .welcome-hero-hi {
+    /* Fake crimson header */
+    .hp-header {
+      background: var(--khabar-600);
+      height: 56px;
+      margin-top: 48px;
       display: flex;
       align-items: center;
+      padding: 0 var(--sp-4);
       gap: var(--sp-3);
     }
-    .welcome-wave-icon {
-      font-size: 28px;
-      line-height: 1;
+    .hp-logo-bar {
+      flex: 1;
+      height: 20px;
+      background: rgba(255,255,255,0.55);
+      border-radius: 4px;
+      max-width: 130px;
     }
-    .welcome-title {
+    .hp-icon { width: 28px; height: 28px; background: rgba(255,255,255,0.22); border-radius: 50%; }
+
+    /* Fake nav chips */
+    .hp-chips {
+      display: flex;
+      gap: var(--sp-2);
+      padding: var(--sp-3) var(--sp-4);
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+    .hp-chip {
+      height: 28px;
+      border-radius: 14px;
+      background: var(--surface-raised);
+      flex-shrink: 0;
+    }
+
+    /* Fake news cards */
+    .hp-cards { padding: var(--sp-3) var(--sp-4); display: flex; flex-direction: column; gap: var(--sp-3); }
+    .hp-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: var(--sp-3);
+      display: flex;
+      gap: var(--sp-3);
+      align-items: center;
+    }
+    .hp-card-text { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+    .hp-line { height: 11px; border-radius: 3px; background: var(--line); }
+    .hp-line.lg { width: 90%; }
+    .hp-line.md { width: 70%; }
+    .hp-line.sm { width: 45%; background: var(--line); opacity: 0.6; }
+    .hp-thumb {
+      width: 72px; height: 56px;
+      background: var(--surface-raised);
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    /* Scrim over home peek */
+    .home-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(15,26,46,0.22) 0%,
+        rgba(15,26,46,0.52) 30%,
+        rgba(15,26,46,0.72) 100%
+      );
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+    }
+
+    /* ── Welcome bottom sheet ── */
+    .welcome-sheet {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: var(--surface);
+      border-radius: 24px 24px 0 0;
+      display: flex;
+      flex-direction: column;
+      max-height: 72%;
+      box-shadow: 0 -8px 40px rgba(15,26,46,0.22);
+      animation: sheetSlideUp 0.52s var(--ease-out) both;
+    }
+    @keyframes sheetSlideUp {
+      from { transform: translateY(100%); opacity: 0.6; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+
+    /* Grip */
+    .ws-grip {
+      width: 40px; height: 4px;
+      background: var(--line-strong);
+      border-radius: 2px;
+      margin: var(--sp-3) auto var(--sp-4);
+      flex-shrink: 0;
+    }
+
+    /* Sheet header */
+    .ws-header {
+      padding: 0 var(--sp-6) var(--sp-4);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--sp-3);
+      flex-shrink: 0;
+    }
+    .ws-wave {
+      font-size: 36px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .ws-title-block { flex: 1; }
+    .ws-title {
       font-family: var(--font-devanagari);
       font-size: 20px;
       font-weight: 700;
-      color: #fff;
-      text-align: center;
-      line-height: 1.35;
+      color: var(--ink-900);
+      line-height: 1.3;
+      margin-bottom: 4px;
     }
-    .welcome-sub {
+    .ws-sub {
       font-family: var(--font-devanagari);
-      font-size: 14px;
-      color: var(--on-dark-72);
-      text-align: center;
+      font-size: 13px;
+      color: var(--ink-500);
+      line-height: 1.5;
     }
 
-    .welcome-body {
-      flex: 1;
-      padding: var(--sp-6) var(--sp-6) 0;
-      display: flex;
-      flex-direction: column;
-      gap: var(--sp-4);
-      overflow-y: auto;
+    /* Divider */
+    .ws-divider {
+      height: 1px;
+      background: var(--line);
+      margin: 0 var(--sp-6) var(--sp-4);
+      flex-shrink: 0;
     }
 
+    /* Section label */
     .section-eyebrow {
       font-family: var(--font-latin);
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 600;
       letter-spacing: 0.1em;
       color: var(--ink-300);
       text-transform: uppercase;
     }
 
-    .feature-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--sp-3);
-    }
-
-    .feat-card {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: var(--sp-4);
+    /* Feature rows — compact list */
+    .ws-body {
+      padding: 0 var(--sp-6);
+      flex: 1;
+      overflow-y: auto;
       display: flex;
       flex-direction: column;
       gap: var(--sp-3);
-      transition: all var(--dur-md) var(--ease-out);
     }
-    .feat-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 16px rgba(15,26,46,0.08);
+
+    .feat-row {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      padding: var(--sp-3) 0;
+      border-bottom: 1px solid var(--line);
     }
-    .feat-card.wide { grid-column: 1 / -1; flex-direction: row; align-items: center; gap: var(--sp-4); }
-    .feat-card.wide .feat-text { flex: 1; }
+    .feat-row:last-child { border-bottom: none; }
 
     .feat-icon {
-      width: 48px; height: 48px;
+      width: 44px; height: 44px;
       border-radius: 12px;
       display: flex;
       align-items: center;
@@ -893,23 +981,27 @@
     .fi-astro  { background: #F3E5F5; color: #7B1FA2; }
     .fi-sports { background: #FBE9E7; color: var(--cat-sports); }
 
+    .feat-text { flex: 1; }
     .feat-name {
       font-family: var(--font-devanagari);
       font-size: 15px;
       font-weight: 700;
       color: var(--ink-900);
-      line-height: 1.35;
-      margin-bottom: 4px;
+      line-height: 1.3;
     }
     .feat-desc {
       font-family: var(--font-devanagari);
       font-size: 12px;
       color: var(--ink-500);
-      line-height: 1.5;
+      line-height: 1.4;
+      margin-top: 2px;
     }
+    .feat-arrow { color: var(--ink-300); flex-shrink: 0; }
 
-    .welcome-footer {
-      padding: var(--sp-4) var(--sp-6) 40px;
+    /* CTA */
+    .ws-footer {
+      padding: var(--sp-4) var(--sp-6) 36px;
+      flex-shrink: 0;
     }
 
     /* ════════════════════════════════════════
@@ -1308,82 +1400,141 @@
 
         <div class="screen-welcome">
 
-          <!-- Hero -->
-          <div class="welcome-hero">
-            <img src="https://www.livehindustan.com/static-content/1y/lh/img/lh-logo-desk.webp"
-                 alt="लाइव हिन्दुस्तान" class="welcome-hero-logo">
-            <div class="welcome-hero-hi">
-              <span class="welcome-wave-icon">👋</span>
+          <!-- ── Home feed peek behind sheet ── -->
+          <div class="home-peek" aria-hidden="true">
+            <!-- Status bar area -->
+            <div style="height:48px; background:var(--khabar-600);"></div>
+            <!-- Fake header -->
+            <div class="hp-header">
+              <div class="hp-logo-bar"></div>
+              <div class="hp-icon"></div>
+              <div class="hp-icon"></div>
             </div>
-            <div class="welcome-title">हिन्दुस्तान ऐप में आपका स्वागत है!</div>
-            <div class="welcome-sub">Discover what's inside — आपके लिए खास</div>
+            <!-- Fake nav chips -->
+            <div class="hp-chips">
+              <div class="hp-chip" style="width:48px;"></div>
+              <div class="hp-chip" style="width:64px;"></div>
+              <div class="hp-chip" style="width:56px;"></div>
+              <div class="hp-chip" style="width:72px;"></div>
+              <div class="hp-chip" style="width:48px;"></div>
+            </div>
+            <!-- Fake news cards -->
+            <div class="hp-cards">
+              <div class="hp-card">
+                <div class="hp-card-text">
+                  <div class="hp-line lg"></div>
+                  <div class="hp-line md"></div>
+                  <div class="hp-line sm"></div>
+                </div>
+                <div class="hp-thumb"></div>
+              </div>
+              <div class="hp-card">
+                <div class="hp-card-text">
+                  <div class="hp-line lg"></div>
+                  <div class="hp-line" style="width:80%;"></div>
+                  <div class="hp-line sm"></div>
+                </div>
+                <div class="hp-thumb"></div>
+              </div>
+              <div class="hp-card">
+                <div class="hp-card-text">
+                  <div class="hp-line" style="width:85%;"></div>
+                  <div class="hp-line md"></div>
+                </div>
+                <div class="hp-thumb"></div>
+              </div>
+            </div>
           </div>
 
-          <!-- Feature cards -->
-          <div class="welcome-body">
-            <p class="section-eyebrow">अंदर क्या है</p>
-            <div class="feature-grid">
+          <!-- ── Blur + dim scrim ── -->
+          <div class="home-scrim" aria-hidden="true"></div>
 
-              <div class="feat-card">
+          <!-- ── Welcome bottom sheet ── -->
+          <div class="welcome-sheet" role="dialog" aria-modal="true" aria-labelledby="wsTitle">
+
+            <div class="ws-grip" aria-hidden="true"></div>
+
+            <!-- Header -->
+            <div class="ws-header">
+              <span class="ws-wave" aria-hidden="true">👋</span>
+              <div class="ws-title-block">
+                <div class="ws-title" id="wsTitle">हिन्दुस्तान ऐप में<br>आपका स्वागत है!</div>
+                <div class="ws-sub">Discover what's inside — आपके लिए खास</div>
+              </div>
+            </div>
+
+            <div class="ws-divider" aria-hidden="true"></div>
+
+            <!-- Feature list -->
+            <div class="ws-body">
+              <p class="section-eyebrow">अंदर क्या है</p>
+
+              <div class="feat-row">
                 <div class="feat-icon fi-local" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                 </div>
                 <div class="feat-text">
                   <div class="feat-name">स्थानीय खबरें</div>
                   <div class="feat-desc">शहर-राज्य की हर ताज़ा खबर</div>
                 </div>
+                <div class="feat-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
               </div>
 
-              <div class="feat-card">
+              <div class="feat-row">
                 <div class="feat-icon fi-kaam" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
                 </div>
                 <div class="feat-text">
                   <div class="feat-name">काम की खबर</div>
                   <div class="feat-desc">रोज़मर्रा की ज़रूरी जानकारी</div>
                 </div>
+                <div class="feat-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
               </div>
 
-              <div class="feat-card">
+              <div class="feat-row">
                 <div class="feat-icon fi-jobs" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
                 </div>
                 <div class="feat-text">
                   <div class="feat-name">सरकारी नौकरी</div>
-                  <div class="feat-desc">Vacancy, परीक्षा अपडेट</div>
+                  <div class="feat-desc">Vacancy और परीक्षा अपडेट</div>
                 </div>
+                <div class="feat-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
               </div>
 
-              <div class="feat-card">
+              <div class="feat-row">
                 <div class="feat-icon fi-astro" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
                 </div>
                 <div class="feat-text">
                   <div class="feat-name">राशिफल</div>
                   <div class="feat-desc">आज का राशिफल व पंचांग</div>
                 </div>
+                <div class="feat-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
               </div>
 
-              <div class="feat-card wide">
+              <div class="feat-row">
                 <div class="feat-icon fi-sports" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93 19.07 19.07"/><path d="M4.93 19.07 19.07 4.93"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93 19.07 19.07"/><path d="M4.93 19.07 19.07 4.93"/></svg>
                 </div>
                 <div class="feat-text">
                   <div class="feat-name">खेल</div>
-                  <div class="feat-desc">क्रिकेट लाइव स्कोर, IPL और स्पोर्ट्स न्यूज़</div>
+                  <div class="feat-desc">क्रिकेट लाइव स्कोर और IPL अपडेट</div>
                 </div>
+                <div class="feat-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
               </div>
 
-            </div>
-          </div>
+            </div><!-- /ws-body -->
 
-          <!-- CTA -->
-          <div class="welcome-footer">
-            <button class="btn btn-red" onclick="alert('होम पेज पर जा रहे हैं…')">
-              जारी रखें — होम देखें
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </button>
-          </div>
+            <!-- CTA -->
+            <div class="ws-footer">
+              <button class="btn btn-red" onclick="alert('होम पेज पर जा रहे हैं…')">
+                होम देखें
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+
+          </div><!-- /welcome-sheet -->
 
         </div><!-- /screen-welcome -->
       </div><!-- /phone s4 -->
