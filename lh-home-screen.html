@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="hi" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>लाइव हिन्दुस्तान — होम</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ─── Tokens ─────────────────────────────────────── */
+    :root {
+      --khabar-50:  #FFF5F5;
+      --khabar-100: #FFCDD2;
+      --khabar-600: #B71C1C;
+      --khabar-700: #9E1414;
+
+      --ink-900: #0F1A2E;
+      --ink-700: #374151;
+      --ink-500: #6B7280;
+      --ink-300: #9CA3AF;
+      --ink-100: #E5E7EB;
+
+      --paper:          #FAFAF8;
+      --surface:        #FFFFFF;
+      --surface-raised: #F3F4F2;
+      --line:           #E5E7EB;
+      --line-strong:    #D1D5DB;
+
+      --cat-sports:            #E65100;
+      --cat-sports-bg:         #FFF3E0;
+      --cat-entertainment:     #6A1B9A;
+      --cat-entertainment-bg:  #F3E5F5;
+      --cat-national:          #4E342E;
+      --cat-national-bg:       #EFEBE9;
+      --cat-info:              #0277BD;
+      --cat-info-bg:           #E1F5FE;
+      --cat-local:             #1B5E20;
+      --cat-local-bg:          #E8F5E9;
+
+      --coin-gold: #F59E0B;
+
+      --radius-sm:   4px;
+      --radius-md:   8px;
+      --radius-lg:  12px;
+      --radius-full: 9999px;
+
+      --shadow-xs: 0 1px 2px rgba(15,26,46,0.06);
+      --shadow-sm: 0 2px 8px rgba(15,26,46,0.10);
+
+      --duration-sm: 160ms;
+      --duration-md: 240ms;
+      --ease-out: cubic-bezier(0.16,1,0.3,1);
+
+      --font-deva:  'Noto Sans Devanagari', sans-serif;
+      --font-latin: 'Poppins', sans-serif;
+
+      /* phone frame */
+      --frame-w: 412px;
+      --frame-h: 917px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: #1a1a2e; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    body { font-family: var(--font-deva); color: var(--ink-900); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    img, svg { display: block; }
+    button { font: inherit; cursor: pointer; border: none; background: none; }
+
+    /* ─── Phone Frame ─────────────────────────────────── */
+    .phone-frame {
+      width: var(--frame-w);
+      height: var(--frame-h);
+      background: var(--khabar-50);
+      border-radius: 40px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.55), 0 0 0 2px rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── Status Bar ──────────────────────────────────── */
+    .status-bar {
+      background: var(--surface);
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px 0 24px;
+      flex-shrink: 0;
+    }
+    .status-time {
+      font-family: var(--font-latin);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink-900);
+    }
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--ink-900);
+    }
+    .status-icons svg { width:16px; height:16px; stroke:currentColor; stroke-width:2; fill:none; }
+
+    /* ─── App Header ──────────────────────────────────── */
+    .app-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      flex-shrink: 0;
+      box-shadow: var(--shadow-xs);
+    }
+    .app-header-row {
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px 0 4px;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: var(--radius-sm);
+      color: var(--ink-700);
+      transition: background var(--duration-sm);
+    }
+    .icon-btn:hover { background: var(--surface-raised); }
+    .icon-btn svg { width:22px; height:22px; stroke:currentColor; stroke-width:1.8; fill:none; }
+
+    .lh-wordmark {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 4px;
+    }
+    .lh-logo-circle {
+      width: 32px; height: 32px;
+      background: var(--khabar-600);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .lh-logo-circle svg { width:18px; height:18px; fill:none; stroke:#fff; stroke-width:2.2; }
+    .lh-brand-text {
+      font-family: var(--font-deva);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--khabar-600);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .coin-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--surface);
+      border: 1.5px solid var(--coin-gold);
+      border-radius: var(--radius-full);
+      padding: 4px 10px 4px 6px;
+      font-family: var(--font-latin);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink-900);
+    }
+    .coin-circle {
+      width: 22px; height: 22px;
+      background: linear-gradient(135deg, #F59E0B, #D97706);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .coin-circle svg { width:12px; height:12px; fill:#fff; }
+
+    /* ─── Category Nav ────────────────────────────────── */
+    .category-nav {
+      background: var(--surface);
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      flex-shrink: 0;
+      padding: 8px 12px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+    }
+    .category-nav::-webkit-scrollbar { display: none; }
+
+    .cat-pill {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px 6px 10px;
+      border-radius: var(--radius-full);
+      border: 1.5px solid var(--line);
+      font-family: var(--font-deva);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink-700);
+      white-space: nowrap;
+      flex-shrink: 0;
+      background: var(--surface);
+      transition: all var(--duration-sm);
+    }
+    .cat-pill svg { width:15px; height:15px; stroke:currentColor; stroke-width:1.8; fill:none; flex-shrink:0; }
+    .cat-pill:hover { border-color: var(--khabar-600); color: var(--khabar-600); }
+
+    .cat-pill.active {
+      background: var(--khabar-600);
+      border-color: var(--khabar-600);
+      color: #fff;
+    }
+    .cat-pill.active svg { stroke: #fff; }
+
+    /* ─── Sub Nav ─────────────────────────────────────── */
+    .sub-nav {
+      background: var(--surface);
+      overflow-x: auto;
+      scrollbar-width: none;
+      flex-shrink: 0;
+      border-bottom: 1.5px solid var(--line);
+    }
+    .sub-nav::-webkit-scrollbar { display: none; }
+    .sub-nav-inner {
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 0;
+    }
+    .sub-tab {
+      padding: 10px 14px;
+      font-family: var(--font-deva);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink-500);
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1.5px;
+      transition: all var(--duration-sm);
+      flex-shrink: 0;
+    }
+    .sub-tab:hover { color: var(--khabar-600); }
+    .sub-tab.active {
+      color: var(--khabar-600);
+      border-bottom-color: var(--khabar-600);
+      font-weight: 700;
+    }
+
+    /* ─── Feed ────────────────────────────────────────── */
+    .feed {
+      flex: 1;
+      overflow-y: auto;
+      background: var(--khabar-50);
+      scrollbar-width: none;
+      padding-bottom: 72px; /* bottom nav clearance */
+    }
+    .feed::-webkit-scrollbar { display: none; }
+
+    /* Section label */
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 12px 4px;
+      font-family: var(--font-latin);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-500);
+    }
+    .section-label svg { width:13px; height:13px; stroke:currentColor; stroke-width:2; fill:none; }
+
+    /* ── News Card ── */
+    .news-card {
+      background: var(--surface);
+      margin: 0 0 2px;
+      padding: 12px 12px 10px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--line);
+    }
+    .news-card:first-of-type { margin-top: 0; }
+
+    .card-body { flex: 1; min-width: 0; }
+    .card-cat {
+      font-family: var(--font-latin);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--khabar-600);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .card-cat svg { width:11px; height:11px; stroke:currentColor; stroke-width:2; fill:none; }
+    .card-cat.cat-uttarakhand { color: var(--cat-national); }
+    .card-cat.cat-sports      { color: var(--cat-sports); }
+    .card-cat.cat-entertainment { color: var(--cat-entertainment); }
+
+    .card-headline {
+      font-family: var(--font-deva);
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.5;
+      color: var(--ink-900);
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card-meta {
+      font-family: var(--font-latin);
+      font-size: 11px;
+      color: var(--ink-500);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .card-meta .dot { width:3px; height:3px; background:var(--ink-300); border-radius:50%; flex-shrink:0; }
+
+    .card-thumb {
+      width: 88px;
+      height: 72px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      flex-shrink: 0;
+      background: var(--surface-raised);
+      position: relative;
+    }
+    .card-thumb img { width:100%; height:100%; object-fit:cover; }
+    /* placeholder thumb */
+    .card-thumb.placeholder {
+      display: flex; align-items: center; justify-content: center;
+    }
+    .card-thumb.placeholder svg { width:28px; height:28px; stroke:var(--ink-300); stroke-width:1.5; fill:none; }
+
+    /* ── Trending card (light blue bg) ── */
+    .card-trending {
+      background: #EEF4FF;
+      border-bottom: 1px solid #DBEAFE;
+      margin: 0 0 2px;
+      padding: 12px 12px 10px;
+    }
+    .trending-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--surface);
+      border: 1px solid #BFDBFE;
+      border-radius: var(--radius-full);
+      padding: 3px 10px 3px 6px;
+      font-family: var(--font-deva);
+      font-size: 11px;
+      font-weight: 600;
+      color: #1D4ED8;
+      margin-bottom: 8px;
+    }
+    .trending-chip svg { width:13px; height:13px; stroke:#1D4ED8; stroke-width:1.8; fill:none; }
+    .card-trending .card-headline { font-size: 15px; }
+
+    /* ── Ad strip ── */
+    .ad-strip {
+      background: var(--surface-raised);
+      margin: 2px 0;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .ad-label {
+      font-family: var(--font-latin);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--ink-300);
+      text-transform: uppercase;
+      border: 1px solid var(--line);
+      padding: 2px 8px;
+      border-radius: 2px;
+    }
+    .ad-banner {
+      flex: 1;
+      height: 52px;
+      background: #F0F4FF;
+      border-radius: var(--radius-sm);
+      border: 1px dashed #C7D2FE;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ad-banner-text {
+      font-family: var(--font-latin);
+      font-size: 11px;
+      color: #818CF8;
+      font-weight: 500;
+    }
+
+    /* ── Breaking strip ── */
+    .breaking-strip {
+      background: var(--khabar-600);
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 2px;
+    }
+    .live-dot {
+      width: 8px; height: 8px;
+      background: #fff;
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: pulse-live 1.6s ease-in-out infinite;
+    }
+    @keyframes pulse-live {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .breaking-label {
+      font-family: var(--font-latin);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #fff;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .breaking-text {
+      font-family: var(--font-deva);
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.92);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ─── Bottom Tab Bar ──────────────────────────────── */
+    .bottom-nav {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 68px;
+      background: var(--surface);
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 0 6px 8px;
+      box-shadow: 0 -2px 12px rgba(15,26,46,0.08);
+      z-index: 20;
+    }
+    .tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding: 6px 10px 0;
+      min-width: 52px;
+      color: var(--ink-300);
+      transition: color var(--duration-sm);
+    }
+    .tab-item svg { width:22px; height:22px; stroke:currentColor; stroke-width:1.6; fill:none; }
+    .tab-label {
+      font-family: var(--font-deva);
+      font-size: 9.5px;
+      font-weight: 500;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .tab-item.active { color: var(--khabar-600); }
+    .tab-item.active svg { stroke-width: 2; }
+
+    .tab-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      margin-top: -12px;
+    }
+    .tab-center-pill {
+      background: #4F46E5;
+      border-radius: var(--radius-full);
+      padding: 9px 16px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 4px 14px rgba(79,70,229,0.4);
+    }
+    .tab-center-pill svg { width:16px; height:16px; stroke:#fff; stroke-width:2; fill:none; }
+    .tab-center-label {
+      font-family: var(--font-deva);
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+    }
+    .tab-center .tab-label { font-size: 9.5px; color: var(--ink-300); }
+
+    /* ─── Reduced motion ──────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="phone-frame" id="homeScreen">
+
+  <!-- Status bar -->
+  <div class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <!-- Signal -->
+      <svg viewBox="0 0 24 24"><path d="M1 6l4.5 4.5M6 2l7 7M11.5 0l9 9M16 5l4 4" stroke-linecap="round"/></svg>
+      <!-- Wifi -->
+      <svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01" stroke-linecap="round"/></svg>
+      <!-- Battery -->
+      <svg viewBox="0 0 24 24"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2" stroke-linecap="round"/><rect x="3.5" y="8.5" width="13" height="7" rx="1" fill="currentColor" opacity="0.7"/></svg>
+    </span>
+  </div>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="app-header-row">
+      <div class="header-left">
+        <button class="icon-btn" aria-label="मेन्यू">
+          <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <a href="#" class="lh-wordmark" aria-label="लाइव हिन्दुस्तान होम">
+          <div class="lh-logo-circle">
+            <svg viewBox="0 0 24 24"><path d="M4 4h4v16H4zM16 4h4v16h-4zM8 12h8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="lh-brand-text">हिन्दुस्तान</span>
+        </a>
+      </div>
+      <div class="header-right">
+        <button class="icon-btn" aria-label="खोज">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35" stroke-linecap="round"/></svg>
+        </button>
+        <button class="icon-btn" aria-label="सहेजें">
+          <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        </button>
+        <button class="icon-btn" aria-label="सूचनाएँ">
+          <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </button>
+        <button class="coin-badge" aria-label="HT सिक्के: 354">
+          <div class="coin-circle">
+            <svg viewBox="0 0 12 12" fill="white"><circle cx="6" cy="6" r="5"/><text x="6" y="9" text-anchor="middle" font-size="7" font-weight="700" fill="#D97706">H</text></svg>
+          </div>
+          <span>354</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Category Nav Pills -->
+  <nav class="category-nav" aria-label="श्रेणियाँ">
+    <button class="cat-pill active" aria-current="true">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      होम
+    </button>
+    <button class="cat-pill">
+      <svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+      राज्य
+    </button>
+    <button class="cat-pill">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      क्रिकेट
+    </button>
+    <button class="cat-pill">
+      <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      धर्म
+    </button>
+    <button class="cat-pill">
+      <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+      करियर
+    </button>
+    <button class="cat-pill">
+      <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      बिजनेस
+    </button>
+    <button class="cat-pill">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      राशिफल
+    </button>
+  </nav>
+
+  <!-- Sub Nav -->
+  <nav class="sub-nav" aria-label="उप-श्रेणियाँ">
+    <div class="sub-nav-inner">
+      <button class="sub-tab active" aria-current="true">ट्रेंडिंग</button>
+      <button class="sub-tab">आपके शहर की खबरें</button>
+      <button class="sub-tab">मनोरंजन</button>
+      <button class="sub-tab">बिजनेस</button>
+      <button class="sub-tab">विदेश</button>
+    </div>
+  </nav>
+
+  <!-- Breaking strip -->
+  <div class="breaking-strip" role="marquee" aria-live="polite">
+    <div class="live-dot" aria-hidden="true"></div>
+    <span class="breaking-label">LIVE</span>
+    <span class="breaking-text">संसद सत्र शुरू — सरकार आज पेश करेगी नया विधेयक · दिल्ली-NCR में भारी बारिश का अनुमान</span>
+  </div>
+
+  <!-- News Feed -->
+  <main class="feed" id="main" aria-label="खबरें">
+
+    <!-- Section: आपके शहर की खबरें -->
+    <div class="section-label">
+      <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+      आपके शहर की खबरें
+    </div>
+
+    <!-- Card 1 – Local lead -->
+    <article class="news-card">
+      <div class="card-body">
+        <div class="card-cat">
+          <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          दिल्ली NCR
+        </div>
+        <h2 class="card-headline">उत्तरकाशी में बादल फटने से बड़ी तबाही, पहाड़ से गिरे मलबे में दब गए दर्जनों मकान</h2>
+        <div class="card-meta">
+          <span>लाइव हिन्दुस्तान</span>
+          <span class="dot"></span>
+          <time datetime="2026-06-29T10:00">22 मिनट पहले</time>
+        </div>
+      </div>
+      <div class="card-thumb">
+        <svg viewBox="0 0 88 72" xmlns="http://www.w3.org/2000/svg">
+          <rect width="88" height="72" fill="#E9EEF5"/>
+          <rect x="0" y="40" width="88" height="32" fill="#C4CDD6"/>
+          <path d="M20 40 L44 18 L68 40 Z" fill="#A0AAB4"/>
+          <circle cx="60" cy="22" r="8" fill="#D4A017" opacity="0.7"/>
+        </svg>
+      </div>
+    </article>
+
+    <!-- Card 2 – Local -->
+    <article class="news-card">
+      <div class="card-body">
+        <div class="card-cat cat-uttarakhand">उत्तराखंड</div>
+        <h2 class="card-headline">केदारनाथ यात्रा पर मौसम की मार, सरकार ने रोकी तीर्थयात्रियों की आवाजाही</h2>
+        <div class="card-meta">
+          <span>संवाददाता</span>
+          <span class="dot"></span>
+          <time datetime="2026-06-29T09:30">51 मिनट पहले</time>
+        </div>
+      </div>
+      <div class="card-thumb placeholder">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      </div>
+    </article>
+
+    <!-- Trending card -->
+    <div class="card-trending">
+      <div class="trending-chip">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        लोग यह भी पढ़ रहे हैं
+      </div>
+      <div style="display:flex; gap:10px; align-items:flex-start;">
+        <div class="card-body">
+          <div class="card-cat" style="color:#1D4ED8;">ट्रेंडिंग</div>
+          <h2 class="card-headline" style="font-size:14px;">बिहार बोर्ड रिजल्ट 2026 जारी — यहाँ देखें अपना परिणाम, 94% विद्यार्थी पास</h2>
+          <div class="card-meta">
+            <span>लाइव हिन्दुस्तान</span>
+            <span class="dot"></span>
+            <time datetime="2026-06-29T08:00">2 घंटे पहले</time>
+          </div>
+        </div>
+        <div class="card-thumb placeholder" style="background:#DBEAFE;">
+          <svg viewBox="0 0 24 24" style="stroke:#93C5FD;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 – Standard -->
+    <article class="news-card">
+      <div class="card-body">
+        <div class="card-cat cat-uttarakhand">
+          उत्तराखंड
+          <span class="dot" style="background:var(--ink-300);"></span>
+          <time datetime="2026-06-29T09:24" style="font-size:11px; color:var(--ink-500); text-transform:none; letter-spacing:0; font-weight:500;">17 min ago</time>
+        </div>
+        <h2 class="card-headline">उत्तरकाशी में बादल फटने से बड़ी तबाही, पहाड़ से गिरे मलबे में दब गए दर्जनों मकान</h2>
+      </div>
+      <div class="card-thumb placeholder">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      </div>
+    </article>
+
+    <!-- Ad strip -->
+    <div class="ad-strip" role="complementary" aria-label="विज्ञापन">
+      <span class="ad-label">Advertisement</span>
+      <div class="ad-banner">
+        <span class="ad-banner-text">320 × 50 ad unit</span>
+      </div>
+    </div>
+
+    <!-- Card 4 – Entertainment -->
+    <article class="news-card">
+      <div class="card-body">
+        <div class="card-cat cat-entertainment">मनोरंजन</div>
+        <h2 class="card-headline">सलमान खान की नई फिल्म का ट्रेलर रिलीज, 24 घंटे में 5 करोड़ व्यूज</h2>
+        <div class="card-meta">
+          <span>मनोरंजन डेस्क</span>
+          <span class="dot"></span>
+          <time datetime="2026-06-29T07:00">3 घंटे पहले</time>
+        </div>
+      </div>
+      <div class="card-thumb placeholder" style="background:#F3E5F5;">
+        <svg viewBox="0 0 24 24" style="stroke:#CE93D8;"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      </div>
+    </article>
+
+    <!-- Card 5 – Sports -->
+    <article class="news-card">
+      <div class="card-body">
+        <div class="card-cat cat-sports">क्रिकेट</div>
+        <h2 class="card-headline">India vs England: रोहित शर्मा का तूफानी शतक, टीम इंडिया ने बनाए 320 रन</h2>
+        <div class="card-meta">
+          <span>खेल डेस्क</span>
+          <span class="dot"></span>
+          <time datetime="2026-06-29T06:30">4 घंटे पहले</time>
+          <span class="dot"></span>
+          <span>LIVE</span>
+        </div>
+      </div>
+      <div class="card-thumb placeholder" style="background:#FFF3E0;">
+        <svg viewBox="0 0 24 24" style="stroke:#FFCC80;"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93 19.07 19.07"/><path d="M4.93 19.07 19.07 4.93"/></svg>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav" aria-label="मुख्य नेविगेशन">
+    <a class="tab-item active" href="#" aria-current="page">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span class="tab-label">होम</span>
+    </a>
+    <a class="tab-item" href="#">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      <span class="tab-label">क्रेडिट स्कोर</span>
+    </a>
+    <div class="tab-center">
+      <button class="tab-center-pill" aria-label="न्यूज़ ब्रीफ खोलें">
+        <svg viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h8"/></svg>
+        <span class="tab-center-label">न्यूज़ ब्रीफ</span>
+      </button>
+    </div>
+    <a class="tab-item" href="#">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      <span class="tab-label">ई-पेपर</span>
+    </a>
+    <a class="tab-item" href="#">
+      <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+      <span class="tab-label">मोबाइल ऐप</span>
+    </a>
+  </nav>
+
+</div><!-- /phone-frame -->
+
+</body>
+</html>
