@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx --yes playwright --version)",
+      "Bash(npx firecrawl-cli *)",
+      "Bash(wait)",
+      "WebSearch",
+      "Bash(mkdir -p \"/Users/212951/Desktop/Calude - 2027/LH Folder/.claude\")",
+      "Bash(mkdir -p \"/Users/212951/Desktop/Calude - 2027/Khabar DS/.claude\")",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(which python3 *)",
+      "mcp__Figma__get_design_context",
+      "mcp__Figma__get_screenshot",
+      "mcp__Figma__get_metadata",
+      "Bash(ls -la \"/Users/212951/Desktop/Calude - 2027/LH Folder/\" && find \"/Users/212951/Desktop\" -maxdepth 3 -name \"*.png\" -newer \"/Users/212951/Desktop/Calude - 2027/LH Folder/index.html\" 2>/dev/null | head -20)",
+      "Bash(ls \"/Users/212951/Library/Application Support/Claude/local-agent-mode-sessions/skills-plugin/cea792b6-b594-4056-be4c-75c00ce51944/3b3316a0-7faf-42a1-8fda-279dd4d8fbfe/skills/khabar-design/\")"
+    ]
+  }
+}

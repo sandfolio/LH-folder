@@ -1,0 +1,333 @@
+/* ============================================================
+   Noto Sans Devanagari Typography System — Live Hindustan DS
+   Source: livehindustan.com reference  ·  2026-05-24
+   Weights: 400 Regular · 500 Medium · 600 SemiBold · 700 Bold
+   Scripts: Devanagari + Latin (full Unicode coverage)
+   ============================================================ */
+
+/* ── @font-face — Self-hosted ────────────────────────────── */
+
+@font-face {
+  font-family: "Noto Sans Devanagari";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("fonts/NotoSansDevanagari-Regular.ttf") format("truetype");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153,
+                 U+0900-097F, U+1CD0-1CFF, U+200C-200D,
+                 U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+
+@font-face {
+  font-family: "Noto Sans Devanagari";
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url("fonts/NotoSansDevanagari-Medium.ttf") format("truetype");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153,
+                 U+0900-097F, U+1CD0-1CFF, U+200C-200D,
+                 U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+
+@font-face {
+  font-family: "Noto Sans Devanagari";
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url("fonts/NotoSansDevanagari-SemiBold.ttf") format("truetype");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153,
+                 U+0900-097F, U+1CD0-1CFF, U+200C-200D,
+                 U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+
+@font-face {
+  font-family: "Noto Sans Devanagari";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("fonts/NotoSansDevanagari-Bold.ttf") format("truetype");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153,
+                 U+0900-097F, U+1CD0-1CFF, U+200C-200D,
+                 U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+
+/* ── Alternative: Google Fonts CDN
+   <link rel="preconnect" href="https://fonts.googleapis.com" />
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+   <link rel="stylesheet"
+         href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" />
+   ─────────────────────────────────────────────────────────── */
+
+
+/* ── Design Tokens ──────────────────────────────────────── */
+
+:root {
+  /* Font */
+  --font-noto: "Noto Sans Devanagari", "Noto Sans", Arial, Verdana, sans-serif;
+
+  /* Type scale — 7 steps */
+  --type-scale-xs:   12px;
+  --type-scale-sm:   13px;
+  --type-scale-base: 16px;
+  --type-scale-md:   18px;
+  --type-scale-lg:   22px;
+  --type-scale-xl:   26px;
+  --type-scale-2xl:  32px;
+
+  /* Weights */
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+
+  /* Line heights — generous for Devanagari mātrās */
+  --lh-xs:    18px;   /* 12px → 1.500 */
+  --lh-sm:    22px;   /* 13px → 1.692 */
+  --lh-base:  28px;   /* 16px → 1.750 */
+  --lh-md:    32px;   /* 18px → 1.778 */
+  --lh-lg:    36px;   /* 22px → 1.636 */
+  --lh-xl:    40px;   /* 26px → 1.538 */
+  --lh-2xl:   44px;   /* 32px → 1.375 */
+
+  /* Text colors — Live Hindustan palette */
+  --color-text-primary:   #1a1a1a;
+  --color-text-secondary: #333333;
+  --color-text-muted:     #666666;
+  --color-text-light:     #888888;
+  --color-text-on-dark:   #ffffff;
+  --color-text-black:     #000000;
+
+  /* Brand */
+  --color-brand:          #c0392b;   /* Live Hindustan red */
+  --color-brand-dark:     #962d22;
+  --color-section-label:  #c0392b;
+  --color-link:           #c0392b;
+  --color-link-hover:     #962d22;
+
+  /* Backgrounds */
+  --color-bg-white:       #ffffff;
+  --color-bg-light:       #f5f5f5;
+  --color-bg-dark:        #1a1a1a;
+  --color-border:         #e0e0e0;
+}
+
+
+/* ── Base Reset ─────────────────────────────────────────── */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--font-noto);
+  font-size: var(--type-scale-base);    /* 16px */
+  font-weight: var(--weight-regular);   /* 400 */
+  line-height: var(--lh-base);          /* 28px · 1.75 */
+  color: var(--color-text-primary);
+  background: var(--color-bg-white);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+
+/* ── Headings ───────────────────────────────────────────── */
+
+h1, .h1 {
+  font-family: var(--font-noto);
+  font-size: var(--type-scale-2xl);     /* 32px */
+  font-weight: var(--weight-bold);      /* 700 */
+  line-height: var(--lh-2xl);           /* 44px · 1.375 */
+  color: var(--color-text-black);
+  margin: 0;
+}
+
+h2, .h2 {
+  font-family: var(--font-noto);
+  font-size: var(--type-scale-xl);      /* 26px */
+  font-weight: var(--weight-bold);      /* 700 */
+  line-height: var(--lh-xl);            /* 40px · 1.538 */
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+/* Lead / Hero story headline */
+h3.lead, .h3-lead {
+  font-family: var(--font-noto);
+  font-size: var(--type-scale-lg);      /* 22px */
+  font-weight: var(--weight-bold);      /* 700 */
+  line-height: var(--lh-lg);            /* 36px · 1.636 */
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+/* Secondary card headline */
+h3.secondary, .h3-secondary {
+  font-family: var(--font-noto);
+  font-size: var(--type-scale-md);      /* 18px */
+  font-weight: var(--weight-bold);      /* 700 */
+  line-height: var(--lh-md);            /* 32px · 1.778 */
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+h4, .h4 {
+  font-family: var(--font-noto);
+  font-size: var(--type-scale-md);      /* 18px */
+  font-weight: var(--weight-semibold);  /* 600 */
+  line-height: var(--lh-md);            /* 32px */
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+h5, .h5 {
+  font-family: var(--font-noto);
+  font-size: var(--type-scale-base);    /* 16px */
+  font-weight: var(--weight-semibold);  /* 600 */
+  line-height: var(--lh-base);          /* 28px */
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+h6, .h6 {
+  font-family: var(--font-noto);
+  font-size: var(--type-scale-sm);      /* 13px */
+  font-weight: var(--weight-medium);    /* 500 */
+  line-height: var(--lh-sm);            /* 22px */
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+
+/* ── Body / Paragraph ───────────────────────────────────── */
+
+p, .body {
+  font-family: var(--font-noto);
+  font-size: var(--type-scale-base);    /* 16px */
+  font-weight: var(--weight-regular);   /* 400 */
+  line-height: var(--lh-base);          /* 28px · 1.75 */
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.body-sm {
+  font-size: var(--type-scale-sm);      /* 13px */
+  line-height: var(--lh-sm);            /* 22px */
+}
+
+.body-xs {
+  font-size: var(--type-scale-xs);      /* 12px */
+  line-height: var(--lh-xs);            /* 18px */
+}
+
+
+/* ── Metadata / Captions / Timestamps ──────────────────── */
+
+time, figcaption, .meta, .caption {
+  font-family: var(--font-noto);
+  font-size: var(--type-scale-sm);      /* 13px */
+  font-weight: var(--weight-regular);   /* 400 */
+  line-height: var(--lh-sm);            /* 22px · 1.692 */
+  color: var(--color-text-muted);       /* #666666 */
+}
+
+
+/* ── Navigation ─────────────────────────────────────────── */
+
+nav a, .nav-link {
+  font-family: var(--font-noto);
+  font-size: var(--type-scale-base);    /* 16px */
+  font-weight: var(--weight-medium);    /* 500 */
+  line-height: 24px;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+nav a:hover, .nav-link:hover {
+  color: var(--color-brand);
+}
+
+
+/* ── Featured / Hero (dark background) ──────────────────── */
+
+.featured-title,
+h1.featured-title,
+h2.featured-title,
+h3.featured-title {
+  font-size: var(--type-scale-lg);      /* 22px */
+  font-weight: var(--weight-bold);      /* 700 */
+  line-height: var(--lh-lg);            /* 36px · 1.636 */
+  color: var(--color-text-on-dark) !important;
+}
+
+
+/* ── Section Label ──────────────────────────────────────── */
+
+.section-label {
+  font-family: var(--font-noto);
+  font-size: var(--type-scale-xs);      /* 12px */
+  font-weight: var(--weight-bold);      /* 700 */
+  line-height: var(--lh-xs);            /* 18px */
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-section-label);    /* #c0392b */
+  margin: 0;
+}
+
+.section-label.on-dark {
+  color: #ff6b5b;
+}
+
+
+/* ── Breaking / Live Label ──────────────────────────────── */
+
+.breaking-label {
+  font-family: var(--font-noto);
+  font-size: var(--type-scale-xs);      /* 12px */
+  font-weight: var(--weight-bold);      /* 700 */
+  line-height: var(--lh-xs);            /* 18px */
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-on-dark);
+  background: var(--color-brand);
+  padding: 2px 8px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+
+/* ── Utility — Weight Classes ───────────────────────────── */
+
+.font-regular  { font-weight: var(--weight-regular); }
+.font-medium   { font-weight: var(--weight-medium); }
+.font-semibold { font-weight: var(--weight-semibold); }
+.font-bold     { font-weight: var(--weight-bold); }
+
+.text-muted    { color: var(--color-text-muted); }
+.text-on-dark  { color: var(--color-text-on-dark); }
+.text-brand    { color: var(--color-brand); }
+
+strong, b      { font-weight: var(--weight-bold); }
+
+
+/* ── Scale Utility Classes ──────────────────────────────── */
+
+.text-2xl  { font-size: var(--type-scale-2xl); line-height: var(--lh-2xl); }
+.text-xl   { font-size: var(--type-scale-xl);  line-height: var(--lh-xl); }
+.text-lg   { font-size: var(--type-scale-lg);  line-height: var(--lh-lg); }
+.text-md   { font-size: var(--type-scale-md);  line-height: var(--lh-md); }
+.text-base { font-size: var(--type-scale-base); line-height: var(--lh-base); }
+.text-sm   { font-size: var(--type-scale-sm);  line-height: var(--lh-sm); }
+.text-xs   { font-size: var(--type-scale-xs);  line-height: var(--lh-xs); }
+
+
+/* ── Typography Hierarchy Summary ───────────────────────
+   32px  700  — Page h1 (SEO / screen-reader)
+   26px  700  — Section hero / h2
+   22px  700  — Lead story card · Featured hero (h3.lead)
+   18px  700/600 — Secondary / tertiary card headline
+   16px  400  — Body text · nav links
+   13px  400  — Timestamps · captions · metadata
+   12px  700  — Section labels (brand red · uppercase)
+   ──────────────────────────────────────────────────── */

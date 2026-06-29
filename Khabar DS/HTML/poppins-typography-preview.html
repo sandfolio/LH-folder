@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Poppins Typography Preview</title>
+  <link rel="stylesheet" href="poppins-typography.css" />
+  <style>
+    body        { max-width: 800px; margin: 0 auto; padding: 40px 24px; background: #fff; }
+    .section    { margin-bottom: 56px; }
+    .label      { font-family: monospace; font-size: 11px; font-weight: 700;
+                  letter-spacing: 0.1em; text-transform: uppercase;
+                  color: #aaa; margin-bottom: 10px; }
+    .row        { margin-bottom: 20px; }
+    hr          { border: none; border-top: 1px solid #eee; margin: 48px 0; }
+    .dark-bg    { background: #111111; padding: 32px 28px; border-radius: 10px; }
+    .weight-row { display: flex; align-items: baseline; gap: 16px;
+                  margin-bottom: 14px; padding-bottom: 14px;
+                  border-bottom: 1px solid #f0f0f0; }
+    .weight-tag { font-family: monospace; font-size: 11px; color: #bbb;
+                  min-width: 80px; }
+    table       { width: 100%; border-collapse: collapse;
+                  font-family: monospace; font-size: 13px; }
+    th          { text-align: left; padding: 8px 10px;
+                  background: #f7f7f7; border-bottom: 2px solid #e8e8e8; }
+    td          { padding: 8px 10px; border-bottom: 1px solid #f0f0f0; }
+    td:nth-child(2), td:nth-child(3) { color: #888; }
+  </style>
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <div class="section">
+    <div class="label">Design System · Poppins Typeface</div>
+    <h1 style="margin-bottom: 6px">Poppins Typography</h1>
+    <p class="text-muted">400 Regular · 500 Medium · 600 SemiBold · 700 Bold</p>
+  </div>
+
+  <hr />
+
+  <!-- ── Weight Showcase ── -->
+  <div class="section">
+    <div class="label">Weight Scale</div>
+
+    <div class="weight-row">
+      <span class="weight-tag">400 Regular</span>
+      <span style="font-weight:400; font-size:22px; font-family:'Poppins',sans-serif">तेज़ भूरी लोमड़ी आलसी कुत्ते के ऊपर से कूद गई</span>
+    </div>
+    <div class="weight-row">
+      <span class="weight-tag">500 Medium</span>
+      <span style="font-weight:500; font-size:22px; font-family:'Poppins',sans-serif">तेज़ भूरी लोमड़ी आलसी कुत्ते के ऊपर से कूद गई</span>
+    </div>
+    <div class="weight-row">
+      <span class="weight-tag">600 SemiBold</span>
+      <span style="font-weight:600; font-size:22px; font-family:'Poppins',sans-serif">तेज़ भूरी लोमड़ी आलसी कुत्ते के ऊपर से कूद गई</span>
+    </div>
+    <div class="weight-row" style="border-bottom:none">
+      <span class="weight-tag">700 Bold</span>
+      <span style="font-weight:700; font-size:22px; font-family:'Poppins',sans-serif">तेज़ भूरी लोमड़ी आलसी कुत्ते के ऊपर से कूद गई</span>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- ── Heading Scale ── -->
+  <div class="section">
+    <div class="label">Heading Scale</div>
+
+    <div class="row">
+      <div class="label">h1 · 32px · 700 · lh 36.8px · 1.15</div>
+      <h1>बीबीसी न्यूज़ हिंदी में आपका स्वागत है</h1>
+    </div>
+
+    <div class="row">
+      <div class="label">h2 · 24px · 700 · lh 36px · 1.5 — Section heading</div>
+      <h2>प्रमुख समाचार</h2>
+    </div>
+
+    <div class="row">
+      <div class="label">h3.lead · 28px · 700 · lh 42px · 1.5 — Lead story</div>
+      <h3 class="lead">बेल मिलते ही जेल के बाहर रेप अभियुक्त के स्वागत पर विवाद</h3>
+    </div>
+
+    <div class="row">
+      <div class="label">h3.secondary · 18px · 700 · lh 30px · 1.667 — Secondary card</div>
+      <h3 class="secondary">लाइव: ईरान जंग से परेशान 27 देश वर्ल्ड बैंक से मांग</h3>
+    </div>
+
+    <div class="row">
+      <div class="label">h4 · 18px · 600 SemiBold · lh 30px</div>
+      <h4>बीबीसी विशेष: अंदर की बात</h4>
+    </div>
+
+    <div class="row">
+      <div class="label">h5 · 16px · 600 SemiBold · lh 26px</div>
+      <h5>शॉर्ट वीडियो · ताज़ा अपडेट</h5>
+    </div>
+
+    <div class="row" style="margin-bottom:0">
+      <div class="label">h6 · 14px · 500 Medium · lh 18px</div>
+      <h6>विश्व समाचार · राष्ट्रीय खबरें</h6>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- ── Body & UI ── -->
+  <div class="section">
+    <div class="label">Body Text — 16px / 400 / lh 26px (1.625)</div>
+    <p>रेप अभियुक्त की जेल से रिहाई के बाद हुआ स्वागत अब विवादों में है। स्थानीय नेताओं ने इस पर सफाई देने की कोशिश की है, लेकिन सोशल मीडिया पर इसकी आलोचना हो रही है।</p>
+    <p style="margin-top:16px">पॉपिन्स एक ज्यामितीय सैंस-सेरिफ़ टाइपफ़ेस है जिसे इंडियन टाइप फ़ाउंड्री और जोनी पिनहॉर्न ने डिज़ाइन किया है। यह देवनागरी और लैटिन दोनों लिपियों को सुंदर ढंग से प्रस्तुत करता है।</p>
+
+    <div style="margin-top:24px">
+      <div class="label">Body SM — 14px / 400 / lh 18px</div>
+      <p class="body-sm">संबंधित लेख और अधिक जानकारी के लिए नीचे दिए लिंक पर क्लिक करें। अधिक समाचार हमारी वेबसाइट और ऐप पर उपलब्ध हैं।</p>
+    </div>
+
+    <div style="margin-top:24px">
+      <div class="label">Body XS — 12px / 400 / lh 18px</div>
+      <p class="body-xs">© 2026 बीबीसी · गोपनीयता नीति · उपयोग की शर्तें · सुलभता</p>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- ── Timestamps & Captions ── -->
+  <div class="section">
+    <div class="label">Timestamps · Captions · Metadata — 14px / 400 / #545658</div>
+    <time>23 मई 2026 · 3 घंटे पहले</time><br />
+    <time style="margin-top:6px; display:block">अपडेट: 23 मई 2026, दोपहर 2:32 बजे</time>
+    <figcaption style="margin-top:12px">प्रधानमंत्री नरेंद्र मोदी नई दिल्ली में एक प्रेस कॉन्फ्रेंस को संबोधित करते हुए। (फोटो: Getty Images)</figcaption>
+    <p class="meta" style="margin-top:8px">फ़ोटो स्रोत: रॉयटर्स · सर्वाधिकार सुरक्षित</p>
+  </div>
+
+  <hr />
+
+  <!-- ── Navigation ── -->
+  <div class="section">
+    <div class="label">Navigation Links — 16px / 400 / #333333</div>
+    <nav style="display:flex; gap:28px; flex-wrap:wrap;">
+      <a href="#" class="nav-link">होम</a>
+      <a href="#" class="nav-link">भारत</a>
+      <a href="#" class="nav-link">विश्व</a>
+      <a href="#" class="nav-link">व्यापार</a>
+      <a href="#" class="nav-link">मनोरंजन</a>
+      <a href="#" class="nav-link">खेल</a>
+      <a href="#" class="nav-link">विज्ञान</a>
+    </nav>
+  </div>
+
+  <hr />
+
+  <!-- ── Featured / Hero (dark) ── -->
+  <div class="section">
+    <div class="label">Featured / Hero — 28px / 700 / white on dark</div>
+    <div class="dark-bg">
+      <p class="section-label" style="color:#888; margin-bottom:14px">ताज़ा खबर</p>
+      <h3 class="lead featured-title">सुप्रीम कोर्ट ने इलेक्टोरल बॉन्ड मामले में ऐतिहासिक फ़ैसला सुनाया</h3>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- ── Section Labels ── -->
+  <div class="section">
+    <div class="label">Section Label — 12px / 600 SemiBold / uppercase / 0.08em tracking</div>
+    <p class="section-label" style="margin-bottom:6px">ताज़ा खबर</p>
+    <p class="section-label" style="margin-bottom:6px">ब्रेकिंग न्यूज़</p>
+    <p class="section-label">विश्व समाचार · अंतरराष्ट्रीय</p>
+  </div>
+
+  <hr />
+
+  <!-- ── Type Scale Table ── -->
+  <div class="section">
+    <div class="label">Full Type Scale Reference</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Token</th>
+          <th>Size</th>
+          <th>Weight</th>
+          <th>Line-height</th>
+          <th>Ratio</th>
+          <th>Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>--type-scale-2xl</td><td>32px</td><td>700</td><td>36.8px</td><td>1.15</td><td>Page h1 (SEO / a11y)</td></tr>
+        <tr><td>--type-scale-xl</td><td>28px</td><td>700</td><td>42px</td><td>1.50</td><td>Lead story · Hero (h3.lead)</td></tr>
+        <tr><td>--type-scale-lg</td><td>24px</td><td>700</td><td>36px</td><td>1.50</td><td>Section heading (h2)</td></tr>
+        <tr><td>--type-scale-md</td><td>18px</td><td>700 / 600</td><td>30px</td><td>1.67</td><td>Secondary headline (h3.secondary / h4)</td></tr>
+        <tr><td>--type-scale-base</td><td>16px</td><td>400</td><td>26px</td><td>1.625</td><td>Body text · nav links</td></tr>
+        <tr><td>--type-scale-sm</td><td>14px</td><td>400</td><td>18px</td><td>1.286</td><td>Timestamps · captions · metadata</td></tr>
+        <tr><td>--type-scale-xs</td><td>12px</td><td>400 / 600</td><td>18px</td><td>1.500</td><td>Fine print · section labels</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>

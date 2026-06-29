@@ -1,0 +1,191 @@
+/**
+ * Khabar Design System — CSS Custom Properties
+ * All tokens prefixed --khabar-*
+ * Import this file once at the top of your global CSS.
+ */
+
+:root {
+  /* ─────────────────────────────────────────
+   * Brand colours (Deep Crimson scale)
+   * ───────────────────────────────────────── */
+  --khabar-50:  #FFF5F5;
+  --khabar-100: #FFCDD2;
+  --khabar-200: #EF9A9A;
+  --khabar-300: #E57373;
+  --khabar-400: #D75050;
+  --khabar-500: #C63030;
+  --khabar-600: #B71C1C;   /* PRIMARY */
+  --khabar-700: #9E1414;
+  --khabar-800: #851010;
+  --khabar-900: #6B0C0C;
+
+  /* ─────────────────────────────────────────
+   * Ink (text) scale
+   * ───────────────────────────────────────── */
+  --khabar-ink-900: #0F1A2E;
+  --khabar-ink-700: #374151;
+  --khabar-ink-500: #6B7280;
+  --khabar-ink-300: #9CA3AF;
+  --khabar-ink-100: #E5E7EB;
+
+  /* ─────────────────────────────────────────
+   * Surface & paper
+   * ───────────────────────────────────────── */
+  --khabar-paper:       #FAFAF8;
+  --khabar-surface:     #FFFFFF;
+  --khabar-surface-raised: #F3F4F2;
+  --khabar-line:        #E5E7EB;
+  --khabar-line-strong: #D1D5DB;
+
+  /* ─────────────────────────────────────────
+   * Category colours
+   * ───────────────────────────────────────── */
+  --khabar-cat-breaking:      #B71C1C;
+  --khabar-cat-politics:      #1A237E;
+  --khabar-cat-sports:        #E65100;
+  --khabar-cat-business:      #1B5E20;
+  --khabar-cat-entertainment: #6A1B9A;
+  --khabar-cat-technology:    #0277BD;
+  --khabar-cat-lifestyle:     #AD1457;
+  --khabar-cat-national:      #4E342E;
+  --khabar-cat-international: #00695C;
+  --khabar-cat-education:     #F57F17;
+
+  /* Category background fills */
+  --khabar-cat-breaking-bg:      #FFF5F5;
+  --khabar-cat-politics-bg:      #E8EAF6;
+  --khabar-cat-sports-bg:        #FFF3E0;
+  --khabar-cat-business-bg:      #E8F5E9;
+  --khabar-cat-entertainment-bg: #F3E5F5;
+  --khabar-cat-technology-bg:    #E1F5FE;
+  --khabar-cat-lifestyle-bg:     #FCE4EC;
+  --khabar-cat-national-bg:      #EFEBE9;
+  --khabar-cat-international-bg: #E0F2F1;
+  --khabar-cat-education-bg:     #FFFDE7;
+
+  /* ─────────────────────────────────────────
+   * Semantic colours
+   * ───────────────────────────────────────── */
+  --khabar-success-600: #2E7D32;
+  --khabar-success-100: #E8F5E9;
+  --khabar-warning-600: #F57F17;
+  --khabar-warning-100: #FFFDE7;
+  --khabar-danger-600:  #B71C1C;
+  --khabar-danger-100:  #FFCDD2;
+  --khabar-info-600:    #0277BD;
+  --khabar-info-100:    #E1F5FE;
+
+  /* ─────────────────────────────────────────
+   * Typography
+   * ───────────────────────────────────────── */
+  --khabar-font-devanagari: 'Noto Sans Devanagari', sans-serif;
+  --khabar-font-latin:      'Poppins', sans-serif;
+  --khabar-font-body:       'Poppins', 'Noto Sans Devanagari', sans-serif;
+  --khabar-font-mono:       'JetBrains Mono', 'Courier New', monospace;
+
+  --khabar-size-display-xl: 4rem;       /* 64px */
+  --khabar-size-display-lg: 3rem;       /* 48px */
+  --khabar-size-display-md: 2.25rem;    /* 36px */
+  --khabar-size-heading-xl: 1.75rem;    /* 28px */
+  --khabar-size-heading-lg: 1.375rem;   /* 22px */
+  --khabar-size-heading-md: 1.125rem;   /* 18px */
+  --khabar-size-heading-sm: 1rem;       /* 16px */
+  --khabar-size-body-lg:    1.125rem;   /* 18px */
+  --khabar-size-body-md:    1rem;       /* 16px */
+  --khabar-size-body-sm:    0.875rem;   /* 14px */
+  --khabar-size-caption:    0.75rem;    /* 12px */
+  --khabar-size-overline:   0.6875rem;  /* 11px */
+  --khabar-size-label:      0.8125rem;  /* 13px */
+
+  /* ─────────────────────────────────────────
+   * Spacing (4px grid)
+   * ───────────────────────────────────────── */
+  --khabar-space-0:  0px;
+  --khabar-space-1:  4px;
+  --khabar-space-2:  8px;
+  --khabar-space-3:  12px;
+  --khabar-space-4:  16px;
+  --khabar-space-5:  20px;
+  --khabar-space-6:  24px;
+  --khabar-space-8:  32px;
+  --khabar-space-10: 40px;
+  --khabar-space-12: 48px;
+  --khabar-space-16: 64px;
+  --khabar-space-20: 80px;
+  --khabar-space-24: 96px;
+  --khabar-space-32: 128px;
+  --khabar-space-40: 160px;
+
+  /* ─────────────────────────────────────────
+   * Border radius
+   * ───────────────────────────────────────── */
+  --khabar-radius-none: 0px;
+  --khabar-radius-xs:   2px;
+  --khabar-radius-sm:   4px;
+  --khabar-radius-md:   8px;
+  --khabar-radius-lg:   12px;
+  --khabar-radius-xl:   16px;
+  --khabar-radius-full: 9999px;
+
+  /* ─────────────────────────────────────────
+   * Shadows
+   * ───────────────────────────────────────── */
+  --khabar-shadow-none: none;
+  --khabar-shadow-xs:   0 1px 2px rgba(15, 26, 46, 0.06);
+  --khabar-shadow-sm:   0 1px 3px rgba(15, 26, 46, 0.10), 0 1px 2px rgba(15, 26, 46, 0.06);
+  --khabar-shadow-md:   0 4px 6px rgba(15, 26, 46, 0.10), 0 2px 4px rgba(15, 26, 46, 0.06);
+  --khabar-shadow-lg:   0 10px 15px rgba(15, 26, 46, 0.10), 0 4px 6px rgba(15, 26, 46, 0.05);
+  --khabar-shadow-xl:   0 20px 25px rgba(15, 26, 46, 0.10), 0 8px 10px rgba(15, 26, 46, 0.04);
+
+  /* ─────────────────────────────────────────
+   * Motion
+   * ───────────────────────────────────────── */
+  --khabar-duration-xs: 80ms;
+  --khabar-duration-sm: 160ms;
+  --khabar-duration-md: 240ms;
+  --khabar-duration-lg: 480ms;
+  --khabar-duration-xl: 720ms;
+
+  --khabar-ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --khabar-ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+  --khabar-ease-linear: linear;
+  --khabar-ease-in:     cubic-bezier(0.55, 0, 1, 0.45);
+
+  /* ─────────────────────────────────────────
+   * Containers
+   * ───────────────────────────────────────── */
+  --khabar-container-page:    1200px;
+  --khabar-container-article: 680px;
+  --khabar-container-narrow:  480px;
+}
+
+/* ─────────────────────────────────────────
+ * Reduced motion override
+ * ───────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─────────────────────────────────────────
+ * Base styles
+ * ───────────────────────────────────────── */
+html {
+  background-color: var(--khabar-paper);
+  color: var(--khabar-ink-900);
+  font-family: var(--khabar-font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hindi-script blocks */
+[lang="hi"], .devanagari {
+  font-family: var(--khabar-font-devanagari);
+  line-height: 1.75;
+}

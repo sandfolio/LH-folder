@@ -1,0 +1,1385 @@
+<!doctype html>
+<html lang="hi" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LH App — Onboarding Flow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ════════════════════════════════════════
+       KHABAR DESIGN TOKENS
+    ════════════════════════════════════════ */
+    :root {
+      /* Brand scale */
+      --khabar-50:  #FFF5F5;
+      --khabar-100: #FFCDD2;
+      --khabar-200: #EF9A9A;
+      --khabar-500: #C63030;
+      --khabar-600: #B71C1C;
+      --khabar-700: #9E1414;
+      --khabar-800: #851010;
+      --khabar-900: #6B0C0C;
+      /* Ink */
+      --ink-900: #0F1A2E;
+      --ink-700: #374151;
+      --ink-500: #6B7280;
+      --ink-300: #9CA3AF;
+      --ink-100: #E5E7EB;
+      /* Surface */
+      --paper:          #FAFAF8;
+      --surface:        #FFFFFF;
+      --surface-raised: #F3F4F2;
+      --line:           #E5E7EB;
+      --line-strong:    #D1D5DB;
+      /* Overlays */
+      --scrim-86:     rgba(15,26,46,0.86);
+      --overlay-soft: rgba(15,26,46,0.50);
+      --on-dark-72:   rgba(255,255,255,0.72);
+      --on-dark-58:   rgba(255,255,255,0.58);
+      --on-dark-16:   rgba(255,255,255,0.16);
+      --on-dark-10:   rgba(255,255,255,0.10);
+      /* Category */
+      --cat-sports:    #E65100;
+      --cat-education: #F57F17;
+      /* Fonts */
+      --font-devanagari: 'Noto Sans Devanagari', sans-serif;
+      --font-latin:      'Poppins', sans-serif;
+      /* Spacing */
+      --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px;
+      --sp-5: 20px; --sp-6: 24px; --sp-8: 32px; --sp-10: 40px;
+      --sp-12: 48px; --sp-16: 64px;
+      /* Motion */
+      --dur-xs: 80ms; --dur-sm: 160ms; --dur-md: 240ms; --dur-lg: 480ms;
+      --ease-out:    cubic-bezier(0.16,1,0.3,1);
+      --ease-in-out: cubic-bezier(0.45,0,0.55,1);
+      --ease-in:     cubic-bezier(0.55,0,1,0.45);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #111827;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 32px 20px 48px;
+      gap: 32px;
+      font-family: var(--font-devanagari);
+    }
+
+    /* ────── Page header ────── */
+    .page-header {
+      text-align: center;
+    }
+    .page-header h1 {
+      font-family: var(--font-latin);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.45);
+      text-transform: uppercase;
+    }
+
+    /* ────── Screen labels ────── */
+    .screens-row {
+      display: flex;
+      gap: 32px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .screen-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .screen-label {
+      font-family: var(--font-latin);
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ════════════════════════════════════════
+       PHONE FRAME + SCREEN SHELL
+    ════════════════════════════════════════ */
+    .phone {
+      width: 412px;
+      height: 917px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 44px;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.08),
+        0 32px 80px rgba(0,0,0,0.6),
+        inset 0 0 0 1px rgba(255,255,255,0.06);
+      flex-shrink: 0;
+    }
+
+    /* Status bar */
+    .statusbar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 24px 0;
+      z-index: 20;
+      pointer-events: none;
+    }
+    .sb-time {
+      font-family: var(--font-latin);
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .sb-icons { display: flex; align-items: center; gap: 6px; }
+
+    /* ════════════════════════════════════════
+       SCREEN 1 — SPLASH
+    ════════════════════════════════════════ */
+    .screen-splash {
+      width: 412px; height: 917px;
+      background: linear-gradient(165deg, var(--khabar-900) 0%, #7B1212 45%, var(--khabar-700) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 52px var(--sp-6) 44px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative radial glow */
+    .splash-glow {
+      position: absolute;
+      width: 480px; height: 480px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+      top: 60px; left: 50%; transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    .splash-top {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-3);
+      padding-top: 8px;
+      position: relative;
+    }
+    .splash-logo {
+      width: 192px;
+      filter: brightness(0) invert(1);
+    }
+    .splash-tagline {
+      font-family: var(--font-devanagari);
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--on-dark-72);
+      letter-spacing: 0.03em;
+    }
+
+    /* Value prop carousel */
+    .splash-carousel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-6);
+      width: 100%;
+      position: relative;
+    }
+
+    .carousel-stage {
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-4);
+      text-align: center;
+      padding: 0 var(--sp-4);
+    }
+
+    .carousel-icon-ring {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.10);
+      border: 1.5px solid rgba(255,255,255,0.20);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      transition: all var(--dur-md) var(--ease-out);
+    }
+
+    .carousel-headline {
+      font-family: var(--font-devanagari);
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+
+    .carousel-body {
+      font-family: var(--font-devanagari);
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--on-dark-72);
+      line-height: 1.65;
+      max-width: 296px;
+    }
+
+    /* Progress dots */
+    .carousel-dots {
+      display: flex;
+      gap: var(--sp-2);
+      align-items: center;
+    }
+    .cdot {
+      width: 8px; height: 8px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.32);
+      transition: all var(--dur-md) var(--ease-out);
+    }
+    .cdot.active {
+      width: 24px;
+      background: #fff;
+    }
+
+
+    /* Splash bottom */
+    .splash-bottom {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-3);
+      width: 100%;
+      position: relative;
+    }
+
+    /* ────── Shared button styles ────── */
+    .btn {
+      width: 100%;
+      height: 54px;
+      border: none;
+      border-radius: 4px;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-2);
+      transition: all var(--dur-sm) var(--ease-out);
+      letter-spacing: -0.01em;
+      font-family: var(--font-devanagari);
+    }
+    .btn:active { transform: scale(0.97); }
+
+    .btn-white {
+      background: #fff;
+      color: var(--khabar-700);
+    }
+    .btn-white:hover { background: var(--khabar-50); }
+
+    .btn-red {
+      background: var(--khabar-600);
+      color: #fff;
+    }
+    .btn-red:hover { background: var(--khabar-700); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--ink-700);
+      border: 1.5px solid var(--line-strong);
+    }
+    .btn-outline:hover { border-color: var(--ink-500); }
+
+    .splash-terms {
+      font-family: var(--font-latin);
+      font-size: 11.5px;
+      color: var(--on-dark-58);
+      text-align: center;
+      line-height: 1.6;
+    }
+    .splash-terms a {
+      color: rgba(255,255,255,0.65);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    /* ════════════════════════════════════════
+       SCREEN 2 — LOGIN
+    ════════════════════════════════════════ */
+    .screen-login {
+      width: 412px; height: 917px;
+      background: var(--paper);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .login-hero {
+      background: var(--khabar-600);
+      padding: 52px var(--sp-6) var(--sp-8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-3);
+      position: relative;
+    }
+    /* subtle wave bottom edge */
+    .login-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0; right: 0;
+      height: 20px;
+      background: var(--paper);
+      border-radius: 20px 20px 0 0;
+    }
+    .login-logo {
+      width: 152px;
+      filter: brightness(0) invert(1);
+    }
+    .login-hero-sub {
+      font-family: var(--font-devanagari);
+      font-size: 14px;
+      color: var(--on-dark-72);
+    }
+
+    .login-body {
+      flex: 1;
+      padding: var(--sp-6) var(--sp-6) var(--sp-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-5);
+      overflow-y: auto;
+    }
+
+    .login-title {
+      font-family: var(--font-devanagari);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--ink-900);
+      line-height: 1.3;
+    }
+
+    /* Tab control */
+    .tab-control {
+      display: flex;
+      background: var(--surface);
+      border: 1.5px solid var(--line);
+      border-radius: 10px;
+      padding: 4px;
+      gap: 4px;
+    }
+    .tab-btn {
+      flex: 1;
+      height: 44px;
+      border: none;
+      border-radius: 7px;
+      font-family: var(--font-devanagari);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      color: var(--ink-500);
+      background: transparent;
+      transition: all var(--dur-md) var(--ease-out);
+    }
+    .tab-btn.active {
+      background: var(--khabar-600);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(183,28,28,0.25);
+    }
+
+    /* Form */
+    .form-stack { display: flex; flex-direction: column; gap: var(--sp-4); }
+
+    .field { display: flex; flex-direction: column; gap: var(--sp-2); }
+
+    .field-label {
+      font-family: var(--font-devanagari);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink-700);
+    }
+
+    .input-wrap { position: relative; display: flex; align-items: center; }
+
+    .input-flag {
+      position: absolute;
+      left: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .input-flag-text {
+      font-family: var(--font-latin);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink-700);
+    }
+    .input-divider-v {
+      width: 1px;
+      height: 20px;
+      background: var(--line);
+      margin-left: 2px;
+    }
+
+    .field-input {
+      width: 100%;
+      height: 54px;
+      border: 1.5px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      font-family: var(--font-latin);
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--ink-900);
+      outline: none;
+      padding: 0 14px;
+      transition: border-color var(--dur-sm) var(--ease-out),
+                  box-shadow var(--dur-sm) var(--ease-out);
+    }
+    .field-input.with-prefix { padding-left: 80px; }
+    .field-input:focus {
+      border-color: var(--khabar-600);
+      box-shadow: 0 0 0 3px rgba(183,28,28,0.12);
+    }
+    .field-input::placeholder { color: var(--ink-300); }
+
+    /* Google sign-in */
+    .btn-google {
+      width: 100%;
+      height: 54px;
+      background: var(--surface);
+      border: 1.5px solid var(--line);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-3);
+      cursor: pointer;
+      font-family: var(--font-latin);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink-700);
+      transition: all var(--dur-md) var(--ease-out);
+    }
+    .btn-google:hover { background: var(--surface-raised); border-color: var(--line-strong); }
+    .btn-google:active { transform: scale(0.97); }
+
+    /* ─── OTP Bottom Sheet ─── */
+    .sheet-overlay {
+      position: absolute;
+      inset: 0;
+      background: var(--overlay-soft);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--dur-lg) var(--ease-out);
+      z-index: 30;
+    }
+    .sheet-overlay.open { opacity: 1; pointer-events: all; }
+
+    .bottom-sheet {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: var(--surface);
+      border-radius: 20px 20px 0 0;
+      padding: var(--sp-5) var(--sp-6) 44px;
+      transform: translateY(100%);
+      transition: transform var(--dur-lg) var(--ease-out);
+      z-index: 31;
+    }
+    .bottom-sheet.open { transform: translateY(0); }
+
+    .sheet-grip {
+      width: 40px; height: 4px;
+      background: var(--line-strong);
+      border-radius: 2px;
+      margin: 0 auto var(--sp-6);
+    }
+    .sheet-title {
+      font-family: var(--font-devanagari);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ink-900);
+      margin-bottom: var(--sp-2);
+    }
+    .sheet-sub {
+      font-family: var(--font-devanagari);
+      font-size: 14px;
+      color: var(--ink-500);
+      line-height: 1.6;
+      margin-bottom: var(--sp-6);
+    }
+    .sheet-sub strong {
+      font-family: var(--font-latin);
+      font-weight: 600;
+      color: var(--ink-700);
+    }
+
+    /* OTP boxes */
+    .otp-row {
+      display: flex;
+      gap: var(--sp-2);
+      justify-content: center;
+      margin-bottom: var(--sp-4);
+    }
+    .otp-box {
+      width: 50px; height: 58px;
+      border: 2px solid var(--line);
+      border-radius: 10px;
+      text-align: center;
+      font-family: var(--font-latin);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--ink-900);
+      background: var(--surface);
+      outline: none;
+      transition: border-color var(--dur-sm) var(--ease-out),
+                  box-shadow var(--dur-sm) var(--ease-out);
+      caret-color: var(--khabar-600);
+    }
+    .otp-box:focus {
+      border-color: var(--khabar-600);
+      box-shadow: 0 0 0 3px rgba(183,28,28,0.12);
+    }
+    .otp-box.filled { border-color: var(--khabar-600); background: var(--khabar-50); }
+
+    .otp-hint {
+      text-align: center;
+      font-family: var(--font-devanagari);
+      font-size: 13px;
+      color: var(--ink-500);
+      margin-bottom: var(--sp-6);
+    }
+    .otp-resend {
+      color: var(--khabar-600);
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* ════════════════════════════════════════
+       SCREEN 3 — LOCATION
+    ════════════════════════════════════════ */
+    .screen-location {
+      width: 412px; height: 917px;
+      background: var(--paper);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .loc-topbar {
+      padding: 52px var(--sp-6) var(--sp-4);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .loc-logo { height: 26px; }
+
+    .btn-skip {
+      font-family: var(--font-devanagari);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink-500);
+      background: none;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 6px 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all var(--dur-sm) var(--ease-out);
+    }
+    .btn-skip:hover { color: var(--ink-700); border-color: var(--line-strong); }
+
+    .loc-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 var(--sp-6) var(--sp-4);
+      gap: var(--sp-6);
+    }
+
+    /* Illustration */
+    .loc-illustration {
+      position: relative;
+      width: 176px; height: 176px;
+    }
+    .loc-ring-outer {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 1.5px solid rgba(183,28,28,0.15);
+      animation: pulse-outer 2.4s ease-out infinite;
+    }
+    .loc-ring-mid {
+      position: absolute;
+      inset: 16px;
+      border-radius: 50%;
+      background: rgba(183,28,28,0.06);
+      border: 1px solid rgba(183,28,28,0.12);
+      animation: pulse-mid 2.4s ease-out 0.4s infinite;
+    }
+    .loc-ring-inner {
+      position: absolute;
+      inset: 36px;
+      border-radius: 50%;
+      background: rgba(183,28,28,0.10);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--khabar-600);
+    }
+    @keyframes pulse-outer {
+      0%, 100% { transform: scale(0.96); opacity: 0.6; }
+      50%       { transform: scale(1.04); opacity: 0.15; }
+    }
+    @keyframes pulse-mid {
+      0%, 100% { transform: scale(0.95); opacity: 0.7; }
+      50%       { transform: scale(1.05); opacity: 0.3; }
+    }
+
+    .loc-text { text-align: center; }
+    .loc-title {
+      font-family: var(--font-devanagari);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--ink-900);
+      line-height: 1.3;
+      margin-bottom: var(--sp-3);
+    }
+    .loc-desc {
+      font-family: var(--font-devanagari);
+      font-size: 15px;
+      color: var(--ink-500);
+      line-height: 1.75;
+    }
+
+    /* Benefit list */
+    .loc-benefits {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+      width: 100%;
+    }
+    .loc-benefit {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: var(--sp-3) var(--sp-4);
+    }
+    .loc-benefit-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: var(--khabar-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--khabar-600);
+      flex-shrink: 0;
+    }
+    .loc-benefit-text {
+      font-family: var(--font-devanagari);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink-700);
+      line-height: 1.4;
+    }
+
+    .loc-footer {
+      padding: var(--sp-4) var(--sp-6) 40px;
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+    }
+
+    /* ════════════════════════════════════════
+       SCREEN 4 — WELCOME
+    ════════════════════════════════════════ */
+    .screen-welcome {
+      width: 412px; height: 917px;
+      background: var(--paper);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .welcome-hero {
+      background: var(--khabar-600);
+      padding: 52px var(--sp-6) var(--sp-8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-4);
+      position: relative;
+    }
+    .welcome-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0; right: 0;
+      height: 20px;
+      background: var(--paper);
+      border-radius: 20px 20px 0 0;
+    }
+    .welcome-hero-logo { width: 140px; filter: brightness(0) invert(1); }
+
+    .welcome-hero-hi {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+    }
+    .welcome-wave-icon {
+      font-size: 28px;
+      line-height: 1;
+    }
+    .welcome-title {
+      font-family: var(--font-devanagari);
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      text-align: center;
+      line-height: 1.35;
+    }
+    .welcome-sub {
+      font-family: var(--font-devanagari);
+      font-size: 14px;
+      color: var(--on-dark-72);
+      text-align: center;
+    }
+
+    .welcome-body {
+      flex: 1;
+      padding: var(--sp-6) var(--sp-6) 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-4);
+      overflow-y: auto;
+    }
+
+    .section-eyebrow {
+      font-family: var(--font-latin);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--ink-300);
+      text-transform: uppercase;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-3);
+    }
+
+    .feat-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: var(--sp-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+      transition: all var(--dur-md) var(--ease-out);
+    }
+    .feat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(15,26,46,0.08);
+    }
+    .feat-card.wide { grid-column: 1 / -1; flex-direction: row; align-items: center; gap: var(--sp-4); }
+    .feat-card.wide .feat-text { flex: 1; }
+
+    .feat-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .fi-local  { background: #E3F2FD; color: #1565C0; }
+    .fi-kaam   { background: #E8F5E9; color: #2E7D32; }
+    .fi-jobs   { background: #FFFDE7; color: #F57F17; }
+    .fi-astro  { background: #F3E5F5; color: #7B1FA2; }
+    .fi-sports { background: #FBE9E7; color: var(--cat-sports); }
+
+    .feat-name {
+      font-family: var(--font-devanagari);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink-900);
+      line-height: 1.35;
+      margin-bottom: 4px;
+    }
+    .feat-desc {
+      font-family: var(--font-devanagari);
+      font-size: 12px;
+      color: var(--ink-500);
+      line-height: 1.5;
+    }
+
+    .welcome-footer {
+      padding: var(--sp-4) var(--sp-6) 40px;
+    }
+
+    /* ════════════════════════════════════════
+       ANIMATION KEYFRAMES
+    ════════════════════════════════════════ */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeOutUp {
+      from { opacity: 1; transform: translateY(0); }
+      to   { opacity: 0; transform: translateY(-14px); }
+    }
+    .anim-in  { animation: fadeInUp  0.35s var(--ease-out) both; }
+    .anim-out { animation: fadeOutUp 0.28s var(--ease-in)  both; }
+
+    /* prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-header">
+    <h1>LH App — Onboarding Flow &nbsp;·&nbsp; 412 × 917 px</h1>
+  </div>
+
+  <div class="screens-row">
+
+    <!-- ╔══════════════════════════════════╗
+         ║  SCREEN 1 · SPLASH              ║
+         ╚══════════════════════════════════╝ -->
+    <div class="screen-col">
+      <span class="screen-label">01 · Splash</span>
+      <div class="phone">
+
+        <!-- Status bar -->
+        <div class="statusbar">
+          <span class="sb-time" style="color:#fff">9:41</span>
+          <div class="sb-icons" style="color:#fff">
+            <!-- Signal bars -->
+            <svg width="17" height="12" viewBox="0 0 17 12" fill="none" aria-hidden="true">
+              <rect x="0" y="5" width="3" height="7" rx="0.5" fill="white" opacity="0.35"/>
+              <rect x="4.5" y="3" width="3" height="9" rx="0.5" fill="white" opacity="0.6"/>
+              <rect x="9" y="1" width="3" height="11" rx="0.5" fill="white"/>
+              <rect x="13.5" y="0" width="3" height="12" rx="0.5" fill="white" opacity="0.3"/>
+            </svg>
+            <!-- WiFi -->
+            <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
+              <path d="M8 9.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" fill="white"/>
+              <path d="M3.5 6C5 4.3 6.4 3.5 8 3.5S11 4.3 12.5 6l1.5-1.5C12.2 2.5 10.2 1.5 8 1.5S3.8 2.5 2 4.5L3.5 6Z" fill="white" opacity="0.65"/>
+              <path d="M1 3C3 1 5.4 0 8 0s5 1 7 3L13.5 4.5C11.7 2.5 10 1.5 8 1.5S4.3 2.5 2.5 4.5L1 3Z" fill="white" opacity="0.35"/>
+            </svg>
+            <!-- Battery -->
+            <svg width="25" height="12" viewBox="0 0 25 12" fill="none" aria-hidden="true">
+              <rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="white" stroke-opacity="0.4"/>
+              <rect x="2" y="2" width="16" height="8" rx="2" fill="white"/>
+              <path d="M23.5 4.5v3c.8-.4.8-2.6 0-3Z" fill="white" fill-opacity="0.45"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="screen-splash">
+          <div class="splash-glow"></div>
+
+          <!-- Logo -->
+          <div class="splash-top">
+            <img src="https://www.livehindustan.com/static-content/1y/lh/img/lh-logo-desk.webp"
+                 alt="लाइव हिन्दुस्तान"
+                 class="splash-logo">
+            <span class="splash-tagline">भारत का भरोसेमंद हिंदी समाचार</span>
+          </div>
+
+          <!-- Value prop carousel -->
+          <div class="splash-carousel">
+
+            <div class="carousel-stage" id="carouselStage">
+              <div class="carousel-icon-ring" id="carouselIcon">
+                <!-- icon swapped by JS -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="carousel-headline" id="carouselHeadline">स्थानीय खबरें</div>
+              <div class="carousel-body" id="carouselBody">अपने शहर और राज्य की हर ताज़ा खबर सबसे पहले पाएं</div>
+            </div>
+
+            <!-- Progress dots -->
+            <div class="carousel-dots" id="carouselDots" aria-live="polite">
+              <div class="cdot active" data-i="0"></div>
+              <div class="cdot" data-i="1"></div>
+              <div class="cdot" data-i="2"></div>
+              <div class="cdot" data-i="3"></div>
+            </div>
+
+
+          </div>
+
+          <!-- CTA -->
+          <div class="splash-bottom">
+            <button class="btn btn-white" onclick="show('s2')">
+              लॉगिन करें
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+            <p class="splash-terms">
+              लॉगिन करने से आप हमारी
+              <a href="#">उपयोग शर्तें</a> और
+              <a href="#">गोपनीयता नीति</a> से सहमत हैं
+            </p>
+          </div>
+        </div>
+
+      </div><!-- /phone s1 -->
+    </div>
+
+    <!-- ╔══════════════════════════════════╗
+         ║  SCREEN 2 · LOGIN               ║
+         ╚══════════════════════════════════╝ -->
+    <div class="screen-col">
+      <span class="screen-label">02 · Login</span>
+      <div class="phone" id="s2">
+
+        <!-- Status bar -->
+        <div class="statusbar">
+          <span class="sb-time" style="color:#fff">9:41</span>
+          <div class="sb-icons" style="color:#fff">
+            <svg width="17" height="12" viewBox="0 0 17 12" fill="none" aria-hidden="true"><rect x="0" y="5" width="3" height="7" rx="0.5" fill="white" opacity="0.35"/><rect x="4.5" y="3" width="3" height="9" rx="0.5" fill="white" opacity="0.6"/><rect x="9" y="1" width="3" height="11" rx="0.5" fill="white"/><rect x="13.5" y="0" width="3" height="12" rx="0.5" fill="white" opacity="0.3"/></svg>
+            <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true"><path d="M8 9.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" fill="white"/><path d="M3.5 6C5 4.3 6.4 3.5 8 3.5S11 4.3 12.5 6l1.5-1.5C12.2 2.5 10.2 1.5 8 1.5S3.8 2.5 2 4.5L3.5 6Z" fill="white" opacity="0.65"/></svg>
+            <svg width="25" height="12" viewBox="0 0 25 12" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="white" stroke-opacity="0.4"/><rect x="2" y="2" width="16" height="8" rx="2" fill="white"/><path d="M23.5 4.5v3c.8-.4.8-2.6 0-3Z" fill="white" fill-opacity="0.45"/></svg>
+          </div>
+        </div>
+
+        <div class="screen-login">
+
+          <!-- Hero -->
+          <div class="login-hero">
+            <img src="https://www.livehindustan.com/static-content/1y/lh/img/lh-logo-desk.webp"
+                 alt="लाइव हिन्दुस्तान" class="login-logo">
+            <span class="login-hero-sub">अपना खाता बनाएं या लॉगिन करें</span>
+          </div>
+
+          <!-- Body -->
+          <div class="login-body">
+
+            <div class="login-title">कैसे लॉगिन करना चाहते हैं?</div>
+
+            <!-- Tab control -->
+            <div class="tab-control" role="tablist">
+              <button class="tab-btn active" id="tabMobile" role="tab" aria-selected="true" onclick="loginTab('mobile')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></svg>
+                मोबाइल
+              </button>
+              <button class="tab-btn" id="tabGmail" role="tab" aria-selected="false" onclick="loginTab('gmail')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                Gmail
+              </button>
+            </div>
+
+            <!-- Mobile form -->
+            <div class="form-stack" id="formMobile">
+              <div class="field">
+                <label class="field-label" for="mobileNum">मोबाइल नंबर</label>
+                <div class="input-wrap">
+                  <div class="input-flag">
+                    <span class="input-flag-text">+91</span>
+                    <div class="input-divider-v"></div>
+                  </div>
+                  <input type="tel" id="mobileNum" class="field-input with-prefix"
+                         placeholder="00000 00000"
+                         maxlength="10" inputmode="numeric"
+                         aria-label="मोबाइल नंबर">
+                </div>
+              </div>
+              <button class="btn btn-red" onclick="openSheet()">
+                OTP प्राप्त करें
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+
+            <!-- Gmail form (hidden) -->
+            <div class="form-stack" id="formGmail" style="display:none">
+              <div class="field">
+                <label class="field-label" for="gmailId">Gmail पता</label>
+                <div class="input-wrap">
+                  <input type="email" id="gmailId" class="field-input"
+                         placeholder="yourname@gmail.com"
+                         aria-label="Gmail पता">
+                </div>
+              </div>
+              <button class="btn-google" onclick="show('s3')">
+                <svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                  <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                  <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                  <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                </svg>
+                Google से जारी रखें
+              </button>
+            </div>
+
+          </div><!-- /login-body -->
+
+          <!-- OTP Bottom sheet overlay -->
+          <div class="sheet-overlay" id="sheetOverlay" onclick="closeSheet()" aria-hidden="true"></div>
+          <div class="bottom-sheet" id="otpSheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+            <div class="sheet-grip"></div>
+            <div class="sheet-title" id="sheetTitle">OTP दर्ज करें</div>
+            <p class="sheet-sub">
+              <strong>+91 98765 43210</strong> पर 6 अंकों का OTP भेजा गया है
+            </p>
+            <div class="otp-row" role="group" aria-label="6 अंकों का OTP">
+              <input type="text" class="otp-box" maxlength="1" inputmode="numeric" aria-label="अंक 1">
+              <input type="text" class="otp-box" maxlength="1" inputmode="numeric" aria-label="अंक 2">
+              <input type="text" class="otp-box" maxlength="1" inputmode="numeric" aria-label="अंक 3">
+              <input type="text" class="otp-box" maxlength="1" inputmode="numeric" aria-label="अंक 4">
+              <input type="text" class="otp-box" maxlength="1" inputmode="numeric" aria-label="अंक 5">
+              <input type="text" class="otp-box" maxlength="1" inputmode="numeric" aria-label="अंक 6">
+            </div>
+            <p class="otp-hint">OTP नहीं मिला? <span class="otp-resend">फिर से भेजें</span> (30 सेकंड)</p>
+            <button class="btn btn-red" onclick="closeSheet(); show('s3')">
+              सत्यापित करें
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+            </button>
+          </div>
+
+        </div><!-- /screen-login -->
+      </div><!-- /phone s2 -->
+    </div>
+
+    <!-- ╔══════════════════════════════════╗
+         ║  SCREEN 3 · LOCATION            ║
+         ╚══════════════════════════════════╝ -->
+    <div class="screen-col">
+      <span class="screen-label">03 · Location</span>
+      <div class="phone">
+
+        <!-- Status bar -->
+        <div class="statusbar">
+          <span class="sb-time" style="color:var(--ink-900)">9:41</span>
+          <div class="sb-icons" style="color:var(--ink-900)">
+            <svg width="17" height="12" viewBox="0 0 17 12" fill="none" aria-hidden="true"><rect x="0" y="5" width="3" height="7" rx="0.5" fill="#0F1A2E" opacity="0.35"/><rect x="4.5" y="3" width="3" height="9" rx="0.5" fill="#0F1A2E" opacity="0.6"/><rect x="9" y="1" width="3" height="11" rx="0.5" fill="#0F1A2E"/><rect x="13.5" y="0" width="3" height="12" rx="0.5" fill="#0F1A2E" opacity="0.3"/></svg>
+            <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true"><path d="M8 9.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" fill="#0F1A2E"/><path d="M3.5 6C5 4.3 6.4 3.5 8 3.5S11 4.3 12.5 6l1.5-1.5C12.2 2.5 10.2 1.5 8 1.5S3.8 2.5 2 4.5L3.5 6Z" fill="#0F1A2E" opacity="0.65"/></svg>
+            <svg width="25" height="12" viewBox="0 0 25 12" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="#0F1A2E" stroke-opacity="0.4"/><rect x="2" y="2" width="16" height="8" rx="2" fill="#0F1A2E"/><path d="M23.5 4.5v3c.8-.4.8-2.6 0-3Z" fill="#0F1A2E" fill-opacity="0.45"/></svg>
+          </div>
+        </div>
+
+        <div class="screen-location">
+
+          <!-- Topbar -->
+          <div class="loc-topbar">
+            <img src="https://www.livehindustan.com/static-content/1y/lh/img/lh-logo-desk.webp"
+                 alt="लाइव हिन्दुस्तान" class="loc-logo">
+            <button class="btn-skip" onclick="show('s4')">
+              छोड़ें
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+
+          <!-- Body -->
+          <div class="loc-body">
+
+            <!-- Illustration -->
+            <div class="loc-illustration" role="img" aria-label="स्थान चिह्न">
+              <div class="loc-ring-outer"></div>
+              <div class="loc-ring-mid"></div>
+              <div class="loc-ring-inner">
+                <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+            </div>
+
+            <div class="loc-text">
+              <div class="loc-title">अपना स्थान बताएं</div>
+              <p class="loc-desc">अपने शहर की ताज़ा खबरें, मौसम और नज़दीकी सरकारी योजनाएं पाने के लिए स्थान साझा करें</p>
+            </div>
+
+            <div class="loc-benefits">
+              <div class="loc-benefit">
+                <div class="loc-benefit-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+                </div>
+                <span class="loc-benefit-text">शहर की स्थानीय खबरें सबसे पहले</span>
+              </div>
+              <div class="loc-benefit">
+                <div class="loc-benefit-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+                </div>
+                <span class="loc-benefit-text">मौसम की सटीक जानकारी</span>
+              </div>
+              <div class="loc-benefit">
+                <div class="loc-benefit-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                </div>
+                <span class="loc-benefit-text">नज़दीकी नौकरी व सरकारी योजनाएं</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Footer CTAs -->
+          <div class="loc-footer">
+            <button class="btn btn-red" onclick="show('s4')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              स्थान की अनुमति दें
+            </button>
+            <button class="btn btn-outline" onclick="show('s4')">अभी नहीं, बाद में सेट करें</button>
+          </div>
+
+        </div><!-- /screen-location -->
+      </div><!-- /phone s3 -->
+    </div>
+
+    <!-- ╔══════════════════════════════════╗
+         ║  SCREEN 4 · WELCOME             ║
+         ╚══════════════════════════════════╝ -->
+    <div class="screen-col">
+      <span class="screen-label">04 · Welcome</span>
+      <div class="phone" id="s4">
+
+        <!-- Status bar -->
+        <div class="statusbar">
+          <span class="sb-time" style="color:#fff">9:41</span>
+          <div class="sb-icons" style="color:#fff">
+            <svg width="17" height="12" viewBox="0 0 17 12" fill="none" aria-hidden="true"><rect x="0" y="5" width="3" height="7" rx="0.5" fill="white" opacity="0.35"/><rect x="4.5" y="3" width="3" height="9" rx="0.5" fill="white" opacity="0.6"/><rect x="9" y="1" width="3" height="11" rx="0.5" fill="white"/><rect x="13.5" y="0" width="3" height="12" rx="0.5" fill="white" opacity="0.3"/></svg>
+            <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true"><path d="M8 9.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" fill="white"/><path d="M3.5 6C5 4.3 6.4 3.5 8 3.5S11 4.3 12.5 6l1.5-1.5C12.2 2.5 10.2 1.5 8 1.5S3.8 2.5 2 4.5L3.5 6Z" fill="white" opacity="0.65"/></svg>
+            <svg width="25" height="12" viewBox="0 0 25 12" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="white" stroke-opacity="0.4"/><rect x="2" y="2" width="16" height="8" rx="2" fill="white"/><path d="M23.5 4.5v3c.8-.4.8-2.6 0-3Z" fill="white" fill-opacity="0.45"/></svg>
+          </div>
+        </div>
+
+        <div class="screen-welcome">
+
+          <!-- Hero -->
+          <div class="welcome-hero">
+            <img src="https://www.livehindustan.com/static-content/1y/lh/img/lh-logo-desk.webp"
+                 alt="लाइव हिन्दुस्तान" class="welcome-hero-logo">
+            <div class="welcome-hero-hi">
+              <span class="welcome-wave-icon">👋</span>
+            </div>
+            <div class="welcome-title">हिन्दुस्तान ऐप में आपका स्वागत है!</div>
+            <div class="welcome-sub">Discover what's inside — आपके लिए खास</div>
+          </div>
+
+          <!-- Feature cards -->
+          <div class="welcome-body">
+            <p class="section-eyebrow">अंदर क्या है</p>
+            <div class="feature-grid">
+
+              <div class="feat-card">
+                <div class="feat-icon fi-local" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <div class="feat-text">
+                  <div class="feat-name">स्थानीय खबरें</div>
+                  <div class="feat-desc">शहर-राज्य की हर ताज़ा खबर</div>
+                </div>
+              </div>
+
+              <div class="feat-card">
+                <div class="feat-icon fi-kaam" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+                <div class="feat-text">
+                  <div class="feat-name">काम की खबर</div>
+                  <div class="feat-desc">रोज़मर्रा की ज़रूरी जानकारी</div>
+                </div>
+              </div>
+
+              <div class="feat-card">
+                <div class="feat-icon fi-jobs" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                </div>
+                <div class="feat-text">
+                  <div class="feat-name">सरकारी नौकरी</div>
+                  <div class="feat-desc">Vacancy, परीक्षा अपडेट</div>
+                </div>
+              </div>
+
+              <div class="feat-card">
+                <div class="feat-icon fi-astro" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
+                </div>
+                <div class="feat-text">
+                  <div class="feat-name">राशिफल</div>
+                  <div class="feat-desc">आज का राशिफल व पंचांग</div>
+                </div>
+              </div>
+
+              <div class="feat-card wide">
+                <div class="feat-icon fi-sports" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93 19.07 19.07"/><path d="M4.93 19.07 19.07 4.93"/></svg>
+                </div>
+                <div class="feat-text">
+                  <div class="feat-name">खेल</div>
+                  <div class="feat-desc">क्रिकेट लाइव स्कोर, IPL और स्पोर्ट्स न्यूज़</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <div class="welcome-footer">
+            <button class="btn btn-red" onclick="alert('होम पेज पर जा रहे हैं…')">
+              जारी रखें — होम देखें
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+
+        </div><!-- /screen-welcome -->
+      </div><!-- /phone s4 -->
+    </div>
+
+  </div><!-- /screens-row -->
+
+
+  <script>
+    /* ─────────────────────────────────────
+       Screen navigation (for demo linking)
+    ───────────────────────────────────── */
+    function show(id) {
+      /* highlight the target phone with a brief glow — purely cosmetic */
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el.style.transition = 'box-shadow 0.3s';
+      el.style.boxShadow = '0 0 0 3px rgba(183,28,28,0.5), 0 32px 80px rgba(0,0,0,0.6)';
+      setTimeout(() => {
+        el.style.boxShadow = '0 0 0 1px rgba(255,255,255,0.08), 0 32px 80px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.06)';
+      }, 700);
+    }
+
+    /* ─────────────────────────────────────
+       Login tab switcher
+    ───────────────────────────────────── */
+    function loginTab(tab) {
+      ['mobile','gmail'].forEach(t => {
+        const btn  = document.getElementById('tab' + t.charAt(0).toUpperCase() + t.slice(1));
+        const form = document.getElementById('form' + t.charAt(0).toUpperCase() + t.slice(1));
+        const active = t === tab;
+        btn.classList.toggle('active', active);
+        btn.setAttribute('aria-selected', active);
+        form.style.display = active ? 'flex' : 'none';
+      });
+    }
+
+    /* ─────────────────────────────────────
+       OTP sheet
+    ───────────────────────────────────── */
+    function openSheet() {
+      document.getElementById('sheetOverlay').classList.add('open');
+      document.getElementById('otpSheet').classList.add('open');
+      /* focus first OTP box */
+      document.querySelector('.otp-box').focus();
+    }
+    function closeSheet() {
+      document.getElementById('sheetOverlay').classList.remove('open');
+      document.getElementById('otpSheet').classList.remove('open');
+    }
+
+    /* OTP box auto-advance + backspace */
+    document.querySelectorAll('.otp-box').forEach((box, i, all) => {
+      box.addEventListener('input', () => {
+        if (box.value.length === 1) {
+          box.classList.add('filled');
+          if (i < all.length - 1) all[i + 1].focus();
+        }
+      });
+      box.addEventListener('keydown', e => {
+        if (e.key === 'Backspace' && !box.value && i > 0) {
+          all[i - 1].value = '';
+          all[i - 1].classList.remove('filled');
+          all[i - 1].focus();
+        }
+      });
+    });
+
+    /* ─────────────────────────────────────
+       Splash — value prop auto-carousel
+    ───────────────────────────────────── */
+    const PROPS = [
+      {
+        headline: 'स्थानीय खबरें',
+        body:     'अपने शहर और राज्य की हर ताज़ा खबर सबसे पहले पाएं',
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>`
+      },
+      {
+        headline: 'काम की खबर',
+        body:     'रोज़मर्रा काम आने वाली जानकारी — सरकारी योजना से किसान तक',
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`
+      },
+      {
+        headline: 'सरकारी नौकरी',
+        body:     'नवीनतम vacancy, परीक्षा नतीजे और कैरियर की हर अपडेट',
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`
+      },
+      {
+        headline: 'खेल व राशिफल',
+        body:     'क्रिकेट लाइव स्कोर, IPL और आज का राशिफल — सब एक जगह',
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93 19.07 19.07"/><path d="M4.93 19.07 19.07 4.93"/></svg>`
+      }
+    ];
+
+    let activeProp = 0;
+
+    function stepCarousel() {
+      const stage    = document.getElementById('carouselStage');
+      const iconEl   = document.getElementById('carouselIcon');
+      const headEl   = document.getElementById('carouselHeadline');
+      const bodyEl   = document.getElementById('carouselBody');
+      const dots     = document.querySelectorAll('.cdot');
+      const chips    = document.querySelectorAll('.chip');
+
+      /* exit anim */
+      stage.classList.add('anim-out');
+
+      setTimeout(() => {
+        activeProp = (activeProp + 1) % PROPS.length;
+        const p = PROPS[activeProp];
+
+        iconEl.innerHTML  = p.icon;
+        headEl.textContent = p.headline;
+        bodyEl.textContent = p.body;
+
+        dots.forEach((d, i)  => d.classList.toggle('active', i === activeProp));
+
+        stage.classList.remove('anim-out');
+        stage.classList.add('anim-in');
+        setTimeout(() => stage.classList.remove('anim-in'), 400);
+      }, 300);
+    }
+
+    setInterval(stepCarousel, 2800);
+  </script>
+
+</body>
+</html>

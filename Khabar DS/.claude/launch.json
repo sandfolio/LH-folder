@@ -1,0 +1,23 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "live-hindustan",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "-p", "4200", "../LH Folder"],
+      "port": 4200
+    },
+    {
+      "name": "khabar-ds",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "-p", "4300", "."],
+      "port": 4300
+    },
+    {
+      "name": "fifa-2026",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "-p", "4301", "../../FIFA 2026 Design v1.3"],
+      "port": 4301
+    }
+  ]
+}
