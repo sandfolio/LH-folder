@@ -128,15 +128,27 @@
     .slide-3 { background: var(--s3-bg); }
     .slide-4 { background: var(--s4-bg); }
 
+    /* ─── Centred body — visual + title + CTA ────────── */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 28px 8px;
+      gap: 0;
+      min-height: 0;
+    }
+
     /* ─── Illustration zone ───────────────────────────── */
     .slide-art {
-      flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-      padding: 36px 32px 16px;
-      min-height: 0;
+      width: 100%;
+      padding: 0;
+      margin-bottom: 32px;
     }
 
     /* Large background circle */
@@ -211,9 +223,13 @@
 
     /* ─── Content zone ────────────────────────────────── */
     .slide-content {
-      padding: 20px 24px 0;
+      padding: 0;
       flex-shrink: 0;
       text-align: center;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     .slide-eyebrow {
       font-family: var(--font-latin);
@@ -263,12 +279,14 @@
 
     /* ─── CTA ─────────────────────────────────────────── */
     .slide-cta-wrap {
-      padding: 20px 24px 16px;
+      padding: 24px 0 0;
       flex-shrink: 0;
       display: flex;
       justify-content: center;
+      width: 100%;
     }
     .slide-cta-wrap .slide-cta {
+      width: 100%;
       max-width: 320px;
     }
     .slide-cta {
@@ -405,7 +423,7 @@
       <!-- ──────────────────────────────────────── -->
       <div class="slide slide-0" role="group" aria-label="स्लाइड 1 में से 5">
 
-        <div class="slide-art">
+        <div class="slide-body"><div class="slide-art">
           <div class="art-ring"></div>
 
           <div class="art-icon">
@@ -432,7 +450,7 @@
           </button>
         </div>
 
-        <div class="pagination">
+        </div><!-- /slide-body --><div class="pagination">
           <button class="skip-btn" onclick="skipToHome()">छोड़ें</button>
           <div class="dots" role="tablist" aria-label="स्लाइड नेविगेशन">
             <button class="dot slide-0-dot active" role="tab" aria-selected="true"  onclick="goToSlide(0)" aria-label="स्लाइड 1"></button>
@@ -454,7 +472,7 @@
       <!-- ──────────────────────────────────────── -->
       <div class="slide slide-1" role="group" aria-label="स्लाइड 2 में से 5">
 
-        <div class="slide-art">
+        <div class="slide-body"><div class="slide-art">
           <div class="art-ring"></div>
 
           <div class="art-icon">
@@ -480,7 +498,7 @@
           </button>
         </div>
 
-        <div class="pagination">
+        </div><!-- /slide-body --><div class="pagination">
           <button class="skip-btn" onclick="skipToHome()">छोड़ें</button>
           <div class="dots" role="tablist">
             <button class="dot slide-0-dot inactive" onclick="goToSlide(0)" aria-label="स्लाइड 1"></button>
@@ -502,7 +520,7 @@
       <!-- ──────────────────────────────────────── -->
       <div class="slide slide-2" role="group" aria-label="स्लाइड 3 में से 5">
 
-        <div class="slide-art">
+        <div class="slide-body"><div class="slide-art">
           <div class="art-ring"></div>
 
           <div class="art-icon">
@@ -529,7 +547,7 @@
           </button>
         </div>
 
-        <div class="pagination">
+        </div><!-- /slide-body --><div class="pagination">
           <button class="skip-btn" onclick="skipToHome()">छोड़ें</button>
           <div class="dots" role="tablist">
             <button class="dot slide-0-dot inactive" onclick="goToSlide(0)" aria-label="स्लाइड 1"></button>
@@ -551,7 +569,7 @@
       <!-- ──────────────────────────────────────── -->
       <div class="slide slide-3" role="group" aria-label="स्लाइड 4 में से 5">
 
-        <div class="slide-art">
+        <div class="slide-body"><div class="slide-art">
           <div class="art-ring"></div>
 
           <div class="art-icon">
@@ -579,7 +597,7 @@
           </button>
         </div>
 
-        <div class="pagination">
+        </div><!-- /slide-body --><div class="pagination">
           <button class="skip-btn" onclick="skipToHome()">छोड़ें</button>
           <div class="dots" role="tablist">
             <button class="dot slide-0-dot inactive" onclick="goToSlide(0)" aria-label="स्लाइड 1"></button>
@@ -601,7 +619,7 @@
       <!-- ──────────────────────────────────────── -->
       <div class="slide slide-4" role="group" aria-label="स्लाइड 5 में से 5">
 
-        <div class="slide-art">
+        <div class="slide-body"><div class="slide-art">
           <div class="art-ring"></div>
 
           <div class="art-icon">
@@ -629,7 +647,7 @@
           </button>
         </div>
 
-        <div class="pagination">
+        </div><!-- /slide-body --><div class="pagination">
           <button class="skip-btn hidden" aria-hidden="true">छोड़ें</button>
           <div class="dots" role="tablist">
             <button class="dot slide-0-dot inactive" onclick="goToSlide(0)" aria-label="स्लाइड 1"></button>
