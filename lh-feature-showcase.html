@@ -213,6 +213,7 @@
     .slide-content {
       padding: 20px 24px 0;
       flex-shrink: 0;
+      text-align: center;
     }
     .slide-eyebrow {
       font-family: var(--font-latin);
@@ -223,6 +224,7 @@
       margin-bottom: 8px;
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 6px;
     }
     .slide-0 .slide-eyebrow { color: var(--s0-acc); }
@@ -263,6 +265,11 @@
     .slide-cta-wrap {
       padding: 20px 24px 16px;
       flex-shrink: 0;
+      display: flex;
+      justify-content: center;
+    }
+    .slide-cta-wrap .slide-cta {
+      max-width: 320px;
     }
     .slide-cta {
       width: 100%;
@@ -401,24 +408,6 @@
         <div class="slide-art">
           <div class="art-ring"></div>
 
-          <!-- Floating badges -->
-          <div class="art-badge badge-tl">
-            <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-            दिल्ली NCR
-          </div>
-          <div class="art-badge badge-tr">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            अभी · LIVE
-          </div>
-          <div class="art-badge badge-bl">
-            <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-            उत्तर प्रदेश
-          </div>
-          <div class="art-badge badge-br">
-            <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-            बिहार
-          </div>
-
           <div class="art-icon">
             <svg viewBox="0 0 24 24">
               <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
@@ -468,23 +457,6 @@
         <div class="slide-art">
           <div class="art-ring"></div>
 
-          <div class="art-badge badge-tl">
-            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            सरकारी योजना
-          </div>
-          <div class="art-badge badge-tr">
-            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-            स्वास्थ्य
-          </div>
-          <div class="art-badge badge-bl">
-            <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-            मौसम
-          </div>
-          <div class="art-badge badge-br">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            ज़रूरी
-          </div>
-
           <div class="art-icon">
             <svg viewBox="0 0 24 24">
               <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
@@ -532,23 +504,6 @@
 
         <div class="slide-art">
           <div class="art-ring"></div>
-
-          <div class="art-badge badge-tl">
-            <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-            UPSC 2026
-          </div>
-          <div class="art-badge badge-tr">
-            <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-            Railway
-          </div>
-          <div class="art-badge badge-bl">
-            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            Admit Card
-          </div>
-          <div class="art-badge badge-br">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            Result
-          </div>
 
           <div class="art-icon">
             <svg viewBox="0 0 24 24">
@@ -599,11 +554,6 @@
         <div class="slide-art">
           <div class="art-ring"></div>
 
-          <div class="art-badge badge-tl">♈ मेष</div>
-          <div class="art-badge badge-tr">♋ कर्क</div>
-          <div class="art-badge badge-bl">♎ तुला</div>
-          <div class="art-badge badge-br">♑ मकर</div>
-
           <div class="art-icon">
             <svg viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="10"/>
@@ -653,22 +603,6 @@
 
         <div class="slide-art">
           <div class="art-ring"></div>
-
-          <div class="art-badge badge-tl">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93 19.07 19.07"/></svg>
-            LIVE Score
-          </div>
-          <div class="art-badge badge-tr">
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            IPL 2026
-          </div>
-          <div class="art-badge badge-bl" style="font-family:'Poppins',sans-serif; font-size:12px; font-weight:700;">
-            IND 320/4
-          </div>
-          <div class="art-badge badge-br">
-            <svg viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>
-            World Cup
-          </div>
 
           <div class="art-icon">
             <svg viewBox="0 0 24 24">
