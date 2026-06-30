@@ -513,6 +513,203 @@
     }
     .tab-center .tab-label { font-size: 9.5px; color: var(--ink-300); }
 
+    /* ─── Welcome Entry Banner ───────────────────────── */
+    .welcome-entry {
+      margin: 0 0 2px;
+      background: linear-gradient(135deg, var(--khabar-600) 0%, #8B0000 100%);
+      padding: 14px 14px 14px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: opacity var(--duration-sm);
+    }
+    .welcome-entry:hover { opacity: 0.93; }
+    .welcome-entry:active { opacity: 0.85; }
+    .we-icon {
+      width: 42px; height: 42px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-size: 20px;
+    }
+    .we-text { flex: 1; min-width: 0; }
+    .we-title {
+      font-family: var(--font-deva);
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.4;
+      margin-bottom: 2px;
+    }
+    .we-sub {
+      font-family: var(--font-latin);
+      font-size: 11px;
+      color: rgba(255,255,255,0.75);
+    }
+    .we-arrow {
+      width: 28px; height: 28px;
+      background: rgba(255,255,255,0.18);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: #fff;
+    }
+    .we-arrow svg { width:14px; height:14px; stroke:#fff; stroke-width:2.5; fill:none; }
+
+    /* ─── Bottom Sheet Overlay ────────────────────────── */
+    .sheet-scrim {
+      position: absolute;
+      inset: 0;
+      background: rgba(15,26,46,0.55);
+      backdrop-filter: blur(2px);
+      z-index: 40;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.32s var(--ease-out);
+    }
+    .sheet-scrim.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .welcome-sheet {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: var(--surface);
+      border-radius: 20px 20px 0 0;
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      max-height: 74%;
+      box-shadow: 0 -8px 40px rgba(15,26,46,0.22);
+      transform: translateY(100%);
+      transition: transform 0.44s var(--ease-out);
+    }
+    .welcome-sheet.open {
+      transform: translateY(0);
+    }
+
+    .ws-grip {
+      width: 36px; height: 4px;
+      background: var(--line-strong);
+      border-radius: var(--radius-full);
+      margin: 10px auto 0;
+      flex-shrink: 0;
+    }
+    .ws-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 14px 16px 12px;
+      flex-shrink: 0;
+    }
+    .ws-wave { font-size: 28px; line-height: 1; flex-shrink: 0; }
+    .ws-title-block { flex: 1; min-width: 0; }
+    .ws-title {
+      font-family: var(--font-deva);
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--ink-900);
+      line-height: 1.4;
+      margin-bottom: 3px;
+    }
+    .ws-sub {
+      font-family: var(--font-latin);
+      font-size: 12px;
+      color: var(--ink-500);
+      line-height: 1.4;
+    }
+    .ws-close {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--surface-raised);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: var(--ink-500);
+    }
+    .ws-close svg { width:16px; height:16px; stroke:currentColor; stroke-width:2; fill:none; }
+    .ws-divider { height: 1px; background: var(--line); margin: 0 16px; flex-shrink: 0; }
+
+    .ws-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 16px 0;
+      scrollbar-width: none;
+    }
+    .ws-body::-webkit-scrollbar { display: none; }
+
+    .ws-eyebrow {
+      font-family: var(--font-latin);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-300);
+      margin-bottom: 10px;
+    }
+
+    .feat-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .feat-row:last-child { border-bottom: none; }
+    .feat-icon {
+      width: 38px; height: 38px;
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .feat-icon svg { width:20px; height:20px; stroke:currentColor; stroke-width:1.6; fill:none; }
+    .fi-local  { background: #E8F5E9; color: #1B5E20; }
+    .fi-kaam   { background: #FFF3E0; color: #E65100; }
+    .fi-jobs   { background: #E8EAF6; color: #1A237E; }
+    .fi-astro  { background: #F3E5F5; color: #6A1B9A; }
+    .fi-sports { background: #FFF5F5; color: var(--khabar-600); }
+    .feat-text { flex: 1; min-width: 0; }
+    .feat-name {
+      font-family: var(--font-deva);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink-900);
+      line-height: 1.3;
+    }
+    .feat-desc {
+      font-family: var(--font-deva);
+      font-size: 12px;
+      color: var(--ink-500);
+      line-height: 1.4;
+    }
+    .feat-chevron { color: var(--ink-300); flex-shrink: 0; }
+    .feat-chevron svg { width:16px; height:16px; stroke:currentColor; stroke-width:2; fill:none; }
+
+    .ws-footer {
+      padding: 14px 16px;
+      flex-shrink: 0;
+      border-top: 1px solid var(--line);
+    }
+    .ws-cta {
+      width: 100%;
+      height: 48px;
+      background: var(--khabar-600);
+      color: #fff;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-deva);
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background var(--duration-sm);
+    }
+    .ws-cta:hover { background: var(--khabar-700); }
+    .ws-cta svg { width:18px; height:18px; stroke:#fff; stroke-width:2.5; fill:none; }
+
     /* ─── Reduced motion ──────────────────────────────── */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
@@ -622,6 +819,18 @@
 
   <!-- News Feed -->
   <main class="feed" id="main" aria-label="खबरें">
+
+    <!-- ── Welcome entry banner ── -->
+    <button class="welcome-entry" onclick="openWelcomeSheet()" aria-haspopup="dialog" aria-label="ऐप की विशेषताएँ देखें">
+      <div class="we-icon" aria-hidden="true">👋</div>
+      <div class="we-text">
+        <div class="we-title">हिन्दुस्तान ऐप में आपका स्वागत है!</div>
+        <div class="we-sub">Discover what's inside — आपके लिए खास</div>
+      </div>
+      <div class="we-arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+    </button>
 
     <!-- Section: आपके शहर की खबरें -->
     <div class="section-label">
@@ -776,7 +985,113 @@
     </a>
   </nav>
 
+  <!-- ── Scrim ── -->
+  <div class="sheet-scrim" id="sheetScrim" onclick="closeWelcomeSheet()" aria-hidden="true"></div>
+
+  <!-- ── Welcome Bottom Sheet ── -->
+  <div class="welcome-sheet" id="welcomeSheet" role="dialog" aria-modal="true" aria-labelledby="wsTitle">
+
+    <div class="ws-grip" aria-hidden="true"></div>
+
+    <div class="ws-header">
+      <span class="ws-wave" aria-hidden="true">👋</span>
+      <div class="ws-title-block">
+        <div class="ws-title" id="wsTitle">हिन्दुस्तान ऐप में<br>आपका स्वागत है!</div>
+        <div class="ws-sub">Discover what's inside — आपके लिए खास</div>
+      </div>
+      <button class="ws-close" onclick="closeWelcomeSheet()" aria-label="बंद करें">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="ws-divider" aria-hidden="true"></div>
+
+    <div class="ws-body">
+      <p class="ws-eyebrow">अंदर क्या है</p>
+
+      <div class="feat-row">
+        <div class="feat-icon fi-local" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="feat-text">
+          <div class="feat-name">स्थानीय खबरें</div>
+          <div class="feat-desc">शहर-राज्य की हर ताज़ा खबर</div>
+        </div>
+        <div class="feat-chevron"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
+      </div>
+
+      <div class="feat-row">
+        <div class="feat-icon fi-kaam" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="feat-text">
+          <div class="feat-name">काम की खबर</div>
+          <div class="feat-desc">रोज़मर्रा की ज़रूरी जानकारी</div>
+        </div>
+        <div class="feat-chevron"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
+      </div>
+
+      <div class="feat-row">
+        <div class="feat-icon fi-jobs" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        </div>
+        <div class="feat-text">
+          <div class="feat-name">सरकारी नौकरी</div>
+          <div class="feat-desc">Vacancy और परीक्षा अपडेट</div>
+        </div>
+        <div class="feat-chevron"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
+      </div>
+
+      <div class="feat-row">
+        <div class="feat-icon fi-astro" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
+        </div>
+        <div class="feat-text">
+          <div class="feat-name">राशिफल</div>
+          <div class="feat-desc">आज का राशिफल व पंचांग</div>
+        </div>
+        <div class="feat-chevron"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
+      </div>
+
+      <div class="feat-row">
+        <div class="feat-icon fi-sports" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93 19.07 19.07"/><path d="M4.93 19.07 19.07 4.93"/></svg>
+        </div>
+        <div class="feat-text">
+          <div class="feat-name">खेल</div>
+          <div class="feat-desc">क्रिकेट लाइव स्कोर और IPL अपडेट</div>
+        </div>
+        <div class="feat-chevron"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
+      </div>
+
+    </div><!-- /ws-body -->
+
+    <div class="ws-footer">
+      <button class="ws-cta" onclick="closeWelcomeSheet()">
+        शुरू करें
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+  </div><!-- /welcome-sheet -->
+
 </div><!-- /phone-frame -->
+
+<script>
+  function openWelcomeSheet() {
+    document.getElementById('welcomeSheet').classList.add('open');
+    document.getElementById('sheetScrim').classList.add('open');
+    document.getElementById('welcomeSheet').focus();
+  }
+  function closeWelcomeSheet() {
+    document.getElementById('welcomeSheet').classList.remove('open');
+    document.getElementById('sheetScrim').classList.remove('open');
+  }
+  // Close on Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeWelcomeSheet();
+  });
+</script>
 
 </body>
 </html>
