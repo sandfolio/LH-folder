@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="hi" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>लाइव हिन्दुस्तान — Feature Sheet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ─── Tokens ─────────────────────────────────────── */
+    :root {
+      --khabar-50:  #FFF5F5;
+      --khabar-100: #FFCDD2;
+      --khabar-600: #B71C1C;
+      --khabar-700: #9E1414;
+
+      --ink-900: #0F1A2E;
+      --ink-700: #374151;
+      --ink-500: #6B7280;
+      --ink-300: #9CA3AF;
+      --ink-100: #E5E7EB;
+
+      --paper:          #FAFAF8;
+      --surface:        #FFFFFF;
+      --surface-raised: #F3F4F2;
+      --line:           #E5E7EB;
+
+      --radius-sm:   4px;
+      --radius-md:   8px;
+      --radius-lg:  12px;
+      --radius-full: 9999px;
+
+      --duration-sm:  160ms;
+      --duration-md:  280ms;
+      --duration-slide: 460ms;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+      --font-deva:  'Noto Sans Devanagari', sans-serif;
+      --font-latin: 'Poppins', sans-serif;
+
+      --frame-w: 412px;
+      --frame-h: 917px;
+
+      /* slide accent colours */
+      --s0-bg:#E8F5E9; --s0-mid:#C8E6C9; --s0-acc:#1B5E20;
+      --s1-bg:#FFF3E0; --s1-mid:#FFE0B2; --s1-acc:#E65100;
+      --s2-bg:#E8EAF6; --s2-mid:#C5CAE9; --s2-acc:#1A237E;
+      --s3-bg:#F3E5F5; --s3-mid:#E1BEE7; --s3-acc:#6A1B9A;
+      --s4-bg:#FFF5F5; --s4-mid:#FFCDD2; --s4-acc:#B71C1C;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html {
+      background: #111827;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    body { font-family: var(--font-deva); -webkit-font-smoothing: antialiased; }
+    button { font: inherit; cursor: pointer; border: none; background: none; }
+    svg { display: block; }
+
+    /* ─── Phone Frame ─────────────────────────────────── */
+    .phone {
+      width: var(--frame-w);
+      height: var(--frame-h);
+      border-radius: 44px;
+      overflow: hidden;
+      position: relative;
+      box-shadow:
+        0 0 0 2px rgba(255,255,255,0.10),
+        0 40px 100px rgba(0,0,0,0.60);
+      background: var(--paper);
+    }
+
+    /* ─── Background home feed (static peek) ─────────── */
+    .home-bg {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Status bar */
+    .status-bar {
+      height: 36px;
+      background: var(--khabar-50);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px 0 22px;
+      flex-shrink: 0;
+    }
+    .status-time {
+      font-family: var(--font-latin);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink-900);
+    }
+    .status-icons { display:flex; align-items:center; gap:5px; color: var(--ink-900); }
+    .status-icons svg { width:14px; height:14px; stroke:currentColor; stroke-width:2; fill:none; }
+
+    /* App header */
+    .app-header-bg {
+      height: 52px;
+      background: var(--khabar-50);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      flex-shrink: 0;
+    }
+    .ht-shield { width:22px; height:26px; flex-shrink:0; }
+    .lh-brand { font-family: var(--font-deva); font-size:17px; font-weight:700; color: var(--ink-900); margin-left:6px; }
+    .header-icons { display:flex; gap:10px; }
+    .header-icons svg { width:20px; height:20px; stroke: var(--ink-700); stroke-width:1.8; fill:none; }
+
+    /* Category pills row */
+    .cat-row {
+      height: 44px;
+      background: var(--khabar-50);
+      border-bottom: 1px solid var(--khabar-100);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 12px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .cat-pill-bg {
+      font-family: var(--font-deva);
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      background: rgba(183,28,28,0.08);
+      color: var(--khabar-600);
+      white-space: nowrap;
+    }
+    .cat-pill-bg.active {
+      background: #F9DCDC;
+      border: 1.5px solid var(--khabar-600);
+      font-weight: 700;
+    }
+
+    /* Feed skeleton */
+    .feed-bg {
+      flex: 1;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow: hidden;
+    }
+    .skel {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+    }
+    .skel-card { height: 88px; }
+    .skel-wide { height: 120px; }
+    .skel-bar  { height: 12px; border-radius: 6px; background: var(--line); margin: 8px 12px 4px; }
+    .skel-bar.short { width: 60%; }
+
+    /* ─── Scrim ───────────────────────────────────────── */
+    .scrim {
+      position: absolute;
+      inset: 0;
+      background: rgba(15,26,46,0.5);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      z-index: 10;
+    }
+
+    /* ─── Feature Bottom Sheet ────────────────────────── */
+    .feature-sheet {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 84%;
+      background: var(--surface);
+      border-radius: 20px 20px 0 0;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 -8px 40px rgba(15,26,46,0.28);
+      overflow: hidden;
+      animation: sheetUp 0.52s var(--ease-out) both;
+    }
+    @keyframes sheetUp {
+      from { transform: translateY(100%); }
+      to   { transform: translateY(0); }
+    }
+
+    /* Grip */
+    .sheet-grip {
+      width: 36px; height: 4px;
+      background: var(--line);
+      border-radius: var(--radius-full);
+      margin: 10px auto 0;
+      flex-shrink: 0;
+    }
+
+    /* Sheet header — title + close */
+    .sheet-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px 8px;
+      flex-shrink: 0;
+    }
+    .sheet-title-block { display: flex; align-items: center; gap: 8px; }
+    .sheet-wave { font-size: 22px; line-height: 1; }
+    .sheet-title {
+      font-family: var(--font-deva);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--ink-900);
+    }
+    .sheet-close {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: var(--surface-raised);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--ink-500);
+      flex-shrink: 0;
+    }
+    .sheet-close svg { width:14px; height:14px; stroke:currentColor; stroke-width:2.5; fill:none; }
+
+    /* Sheet divider */
+    .sheet-divider { height: 1px; background: var(--line); flex-shrink: 0; }
+
+    /* ─── Carousel inside sheet ───────────────────────── */
+    .carousel-wrap {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+      min-height: 0;
+    }
+    .carousel-track {
+      display: flex;
+      width: 500%;
+      height: 100%;
+      transition: transform var(--duration-slide) var(--ease-out);
+      will-change: transform;
+    }
+
+    /* Each slide panel */
+    .slide {
+      width: calc(var(--frame-w));
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .slide-0 { background: var(--s0-bg); }
+    .slide-1 { background: var(--s1-bg); }
+    .slide-2 { background: var(--s2-bg); }
+    .slide-3 { background: var(--s3-bg); }
+    .slide-4 { background: var(--s4-bg); }
+
+    /* Pagination row — at top of each slide */
+    .pagination {
+      padding: 10px 16px 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .dots { display:flex; align-items:center; gap:6px; }
+    .dot {
+      height: 6px;
+      border-radius: var(--radius-full);
+      transition: width var(--duration-md) var(--ease-out), background var(--duration-md);
+      cursor: pointer;
+    }
+    .dot.inactive { width:6px; background: rgba(15,26,46,0.16); }
+    .dot.active   { width:20px; }
+    .slide-0-dot.active { background: var(--s0-acc); }
+    .slide-1-dot.active { background: var(--s1-acc); }
+    .slide-2-dot.active { background: var(--s2-acc); }
+    .slide-3-dot.active { background: var(--s3-acc); }
+    .slide-4-dot.active { background: var(--s4-acc); }
+
+    .skip-btn {
+      font-family: var(--font-latin); font-size:12px; font-weight:500;
+      color: var(--ink-500); padding: 4px 2px;
+    }
+    .skip-btn.hidden { visibility: hidden; }
+    .next-btn {
+      font-family: var(--font-latin); font-size:12px; font-weight:600;
+      display:flex; align-items:center; gap:3px; padding: 4px 2px;
+    }
+    .next-btn svg { width:14px; height:14px; stroke:currentColor; stroke-width:2.5; fill:none; }
+
+    /* Slide body — centred */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 20px 16px;
+      min-height: 0;
+    }
+
+    /* Illustration */
+    .slide-art {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin-bottom: 18px;
+      flex-shrink: 0;
+    }
+    .art-ring {
+      position: absolute;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      opacity: 0.35;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .slide-0 .art-ring { background: var(--s0-mid); }
+    .slide-1 .art-ring { background: var(--s1-mid); }
+    .slide-2 .art-ring { background: var(--s2-mid); }
+    .slide-3 .art-ring { background: var(--s3-mid); }
+    .slide-4 .art-ring { background: var(--s4-mid); }
+
+    .art-icon {
+      width: 96px; height: 96px;
+      border-radius: 22px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; z-index: 2;
+    }
+    .slide-0 .art-icon { background: #C8E6C9; box-shadow: 0 10px 30px rgba(27,94,32,0.20); }
+    .slide-1 .art-icon { background: #FFE0B2; box-shadow: 0 10px 30px rgba(230,81,0,0.20); }
+    .slide-2 .art-icon { background: #C5CAE9; box-shadow: 0 10px 30px rgba(26,35,126,0.20); }
+    .slide-3 .art-icon { background: #E1BEE7; box-shadow: 0 10px 30px rgba(106,27,154,0.20); }
+    .slide-4 .art-icon { background: #FFCDD2; box-shadow: 0 10px 30px rgba(183,28,28,0.20); }
+    .art-icon svg { width:48px; height:48px; stroke-width:1.4; fill:none; }
+    .slide-0 .art-icon svg { stroke: var(--s0-acc); }
+    .slide-1 .art-icon svg { stroke: var(--s1-acc); }
+    .slide-2 .art-icon svg { stroke: var(--s2-acc); }
+    .slide-3 .art-icon svg { stroke: var(--s3-acc); }
+    .slide-4 .art-icon svg { stroke: var(--s4-acc); }
+
+    /* Content */
+    .slide-content {
+      text-align: center; width: 100%;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .slide-title {
+      font-family: var(--font-deva);
+      font-size: 20px; font-weight: 700;
+      color: var(--ink-900); line-height: 1.3;
+      margin-bottom: 6px;
+    }
+    .slide-desc {
+      font-family: var(--font-deva);
+      font-size: 12.5px; color: var(--ink-500);
+      line-height: 1.6;
+    }
+
+    /* News list */
+    .news-list {
+      margin-top: 12px; width: 100%;
+      border-radius: 10px; overflow: hidden;
+      background: rgba(255,255,255,0.75);
+      border: 1px solid rgba(0,0,0,0.06);
+      text-align: left;
+    }
+    .news-item {
+      padding: 7px 10px;
+      display: flex; align-items: flex-start; gap: 7px;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      font-family: var(--font-deva); font-size:11.5px;
+      line-height: 1.45; color: var(--ink-700);
+    }
+    .news-item:last-child { border-bottom: none; }
+    .news-bullet {
+      width: 5px; height: 5px;
+      border-radius: 50%; flex-shrink: 0; margin-top:5px;
+    }
+    .slide-0 .news-bullet { background: var(--s0-acc); }
+    .slide-1 .news-bullet { background: var(--s1-acc); }
+    .slide-2 .news-bullet { background: var(--s2-acc); }
+    .slide-3 .news-bullet { background: var(--s3-acc); }
+    .slide-4 .news-bullet { background: var(--s4-acc); }
+
+    /* CTA */
+    .slide-cta-wrap {
+      padding: 16px 0 0; width: 100%;
+      display: flex; justify-content: center; flex-shrink: 0;
+    }
+    .slide-cta {
+      width: 100%; height: 48px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-deva); font-size:15px; font-weight:700;
+      color: #fff;
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      transition: opacity var(--duration-sm), transform var(--duration-sm);
+    }
+    .slide-cta:active { opacity:0.88; transform:scale(0.98); }
+    .slide-cta svg { width:17px; height:17px; stroke:#fff; stroke-width:2.5; fill:none; }
+    .slide-0 .slide-cta { background: var(--s0-acc); }
+    .slide-1 .slide-cta { background: var(--s1-acc); }
+    .slide-2 .slide-cta { background: var(--s2-acc); }
+    .slide-3 .slide-cta { background: var(--s3-acc); }
+    .slide-4 .slide-cta { background: var(--s4-acc); }
+
+    /* Progress bar */
+    .progress-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px; z-index: 5;
+      background: rgba(15,26,46,0.07);
+    }
+    .progress-fill { height: 100%; width: 0%; transition: width linear; }
+    .slide-0-prog { background: var(--s0-acc); }
+    .slide-1-prog { background: var(--s1-acc); }
+    .slide-2-prog { background: var(--s2-acc); }
+    .slide-3-prog { background: var(--s3-acc); }
+    .slide-4-prog { background: var(--s4-acc); }
+
+    /* ─── Touch swipe support ─────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      .carousel-track, .dot, .progress-fill { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="phone" id="phone">
+
+  <!-- ── Background: Home Feed (static peek) ── -->
+  <div class="home-bg" aria-hidden="true">
+
+    <!-- Status bar -->
+    <div class="status-bar">
+      <span class="status-time">9:41</span>
+      <span class="status-icons">
+        <svg viewBox="0 0 24 24"><path d="M1 6l4.5 4.5M6 2l7 7M11.5 0l9 9M16 5l4 4" stroke-linecap="round"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01" stroke-linecap="round"/></svg>
+        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2" stroke-linecap="round"/><rect x="3.5" y="8.5" width="13" height="7" rx="1" fill="currentColor" opacity="0.7"/></svg>
+      </span>
+    </div>
+
+    <!-- App header -->
+    <div class="app-header-bg">
+      <div style="display:flex;align-items:center;">
+        <svg class="ht-shield" viewBox="0 0 30 34" fill="none">
+          <path d="M15 1L2 6.5V16C2 23.5 7.8 30.4 15 33C22.2 30.4 28 23.5 28 16V6.5L15 1Z" fill="#B71C1C"/>
+          <path d="M9 10h3v5h6v-5h3v14h-3v-6H12v6H9V10Z" fill="white"/>
+        </svg>
+        <span class="lh-brand">हिन्दुस्तान</span>
+      </div>
+      <div class="header-icons">
+        <svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="9" y1="12" x2="15" y2="12"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </div>
+    </div>
+
+    <!-- Category pills -->
+    <div class="cat-row">
+      <span class="cat-pill-bg active">🏠</span>
+      <span class="cat-pill-bg">राज्य 🗺️</span>
+      <span class="cat-pill-bg">क्रिकेट 🏏</span>
+      <span class="cat-pill-bg">धर्म 🌙</span>
+      <span class="cat-pill-bg">करियर 💼</span>
+    </div>
+
+    <!-- Skeleton feed -->
+    <div class="feed-bg">
+      <div class="skel skel-wide"></div>
+      <div class="skel skel-card"></div>
+      <div class="skel skel-card"></div>
+    </div>
+  </div>
+
+  <!-- Scrim -->
+  <div class="scrim"></div>
+
+  <!-- ── Feature Bottom Sheet ── -->
+  <div class="feature-sheet" id="featureSheet">
+
+    <div class="sheet-grip" aria-hidden="true"></div>
+
+    <div class="sheet-header">
+      <div class="sheet-title-block">
+        <span class="sheet-wave" aria-hidden="true">✨</span>
+        <span class="sheet-title">हिन्दुस्तान में आपका स्वागत है</span>
+      </div>
+      <button class="sheet-close" onclick="window.location.href='lh-home-screen.html'" aria-label="बंद करें">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="sheet-divider" aria-hidden="true"></div>
+
+    <!-- Progress bar -->
+    <div class="progress-bar" aria-hidden="true">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Carousel -->
+    <div class="carousel-wrap" id="carouselWrap">
+      <div class="carousel-track" id="track">
+
+        <!-- ── SLIDE 0 — स्थानीय खबरें ── -->
+        <div class="slide slide-0" role="group" aria-label="1 of 5">
+
+          <div class="pagination">
+            <button class="skip-btn" onclick="skipToHome()">छोड़ें</button>
+            <div class="dots">
+              <button class="dot slide-0-dot active"   onclick="goTo(0)" aria-label="Slide 1"></button>
+              <button class="dot slide-1-dot inactive" onclick="goTo(1)" aria-label="Slide 2"></button>
+              <button class="dot slide-2-dot inactive" onclick="goTo(2)" aria-label="Slide 3"></button>
+              <button class="dot slide-3-dot inactive" onclick="goTo(3)" aria-label="Slide 4"></button>
+              <button class="dot slide-4-dot inactive" onclick="goTo(4)" aria-label="Slide 5"></button>
+            </div>
+            <button class="next-btn" onclick="goTo(1)" style="color:#1B5E20;">
+              आगे <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
+
+          <div class="slide-body">
+            <div class="slide-art">
+              <div class="art-ring"></div>
+              <div class="art-icon">
+                <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+            </div>
+            <div class="slide-content">
+              <h2 class="slide-title">स्थानीय खबरें</h2>
+              <p class="slide-desc">अपने शहर और राज्य की हर ताज़ा और ज़रूरी खबर सबसे पहले पढ़ें।</p>
+              <div class="news-list">
+                <div class="news-item"><span class="news-bullet"></span><span>दिल्ली में भारी बारिश के बाद जलभराव, यातायात ठप</span></div>
+                <div class="news-item"><span class="news-bullet"></span><span>UP: सीएम योगी ने किसानों को दिया 1000 करोड़ की राहत</span></div>
+                <div class="news-item"><span class="news-bullet"></span><span>बिहार बोर्ड रिजल्ट घोषित, 80% छात्र पास</span></div>
+              </div>
+            </div>
+            <div class="slide-cta-wrap">
+              <button class="slide-cta" onclick="goTo(1)">
+                See more news
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+        </div><!-- /slide-0 -->
+
+        <!-- ── SLIDE 1 — काम की खबर ── -->
+        <div class="slide slide-1" role="group" aria-label="2 of 5">
+
+          <div class="pagination">
+            <button class="skip-btn" onclick="skipToHome()">छोड़ें</button>
+            <div class="dots">
+              <button class="dot slide-0-dot inactive" onclick="goTo(0)" aria-label="Slide 1"></button>
+              <button class="dot slide-1-dot active"   onclick="goTo(1)" aria-label="Slide 2"></button>
+              <button class="dot slide-2-dot inactive" onclick="goTo(2)" aria-label="Slide 3"></button>
+              <button class="dot slide-3-dot inactive" onclick="goTo(3)" aria-label="Slide 4"></button>
+              <button class="dot slide-4-dot inactive" onclick="goTo(4)" aria-label="Slide 5"></button>
+            </div>
+            <button class="next-btn" onclick="goTo(2)" style="color:#E65100;">
+              आगे <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
+
+          <div class="slide-body">
+            <div class="slide-art">
+              <div class="art-ring"></div>
+              <div class="art-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+            </div>
+            <div class="slide-content">
+              <h2 class="slide-title">काम की खबर</h2>
+              <p class="slide-desc">रोज़मर्रा की ज़िंदगी से जुड़ी ज़रूरी जानकारी — सरकारी योजनाएँ, मौसम और बाज़ार भाव।</p>
+              <div class="news-list">
+                <div class="news-item"><span class="news-bullet"></span><span>PM किसान 16वीं किस्त आज आई, ऐसे चेक करें स्टेटस</span></div>
+                <div class="news-item"><span class="news-bullet"></span><span>पेट्रोल-डीजल नए रेट जारी, जानें आपके शहर में दाम</span></div>
+                <div class="news-item"><span class="news-bullet"></span><span>मानसून: अगले 48 घंटे में भारी बारिश</span></div>
+              </div>
+            </div>
+            <div class="slide-cta-wrap">
+              <button class="slide-cta" onclick="goTo(2)">
+                See more news
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+        </div><!-- /slide-1 -->
+
+        <!-- ── SLIDE 2 — सरकारी नौकरी ── -->
+        <div class="slide slide-2" role="group" aria-label="3 of 5">
+
+          <div class="pagination">
+            <button class="skip-btn" onclick="skipToHome()">छोड़ें</button>
+            <div class="dots">
+              <button class="dot slide-0-dot inactive" onclick="goTo(0)" aria-label="Slide 1"></button>
+              <button class="dot slide-1-dot inactive" onclick="goTo(1)" aria-label="Slide 2"></button>
+              <button class="dot slide-2-dot active"   onclick="goTo(2)" aria-label="Slide 3"></button>
+              <button class="dot slide-3-dot inactive" onclick="goTo(3)" aria-label="Slide 4"></button>
+              <button class="dot slide-4-dot inactive" onclick="goTo(4)" aria-label="Slide 5"></button>
+            </div>
+            <button class="next-btn" onclick="goTo(3)" style="color:#1A237E;">
+              आगे <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
+
+          <div class="slide-body">
+            <div class="slide-art">
+              <div class="art-ring"></div>
+              <div class="art-icon">
+                <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+              </div>
+            </div>
+            <div class="slide-content">
+              <h2 class="slide-title">सरकारी नौकरी</h2>
+              <p class="slide-desc">UPSC, SSC, Railway, Bank की हज़ारों Vacancy। Admit Card और Result तुरंत जानें।</p>
+              <div class="news-list">
+                <div class="news-item"><span class="news-bullet"></span><span>UPSC 2025: 1105 पदों पर भर्ती, आवेदन शुरू</span></div>
+                <div class="news-item"><span class="news-bullet"></span><span>Railway में 35,281 रिक्तियाँ — तारीख 15 जुलाई</span></div>
+                <div class="news-item"><span class="news-bullet"></span><span>SSC CGL 2025 Notification जारी, 17,727 पद</span></div>
+              </div>
+            </div>
+            <div class="slide-cta-wrap">
+              <button class="slide-cta" onclick="goTo(3)">
+                See more news
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+        </div><!-- /slide-2 -->
+
+        <!-- ── SLIDE 3 — राशिफल ── -->
+        <div class="slide slide-3" role="group" aria-label="4 of 5">
+
+          <div class="pagination">
+            <button class="skip-btn" onclick="skipToHome()">छोड़ें</button>
+            <div class="dots">
+              <button class="dot slide-0-dot inactive" onclick="goTo(0)" aria-label="Slide 1"></button>
+              <button class="dot slide-1-dot inactive" onclick="goTo(1)" aria-label="Slide 2"></button>
+              <button class="dot slide-2-dot inactive" onclick="goTo(2)" aria-label="Slide 3"></button>
+              <button class="dot slide-3-dot active"   onclick="goTo(3)" aria-label="Slide 4"></button>
+              <button class="dot slide-4-dot inactive" onclick="goTo(4)" aria-label="Slide 5"></button>
+            </div>
+            <button class="next-btn" onclick="goTo(4)" style="color:#6A1B9A;">
+              आगे <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
+
+          <div class="slide-body">
+            <div class="slide-art">
+              <div class="art-ring"></div>
+              <div class="art-icon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
+              </div>
+            </div>
+            <div class="slide-content">
+              <h2 class="slide-title">राशिफल</h2>
+              <p class="slide-desc">सभी 12 राशियों का आज का विस्तृत राशिफल, पंचांग और शुभ मुहूर्त हिंदी में।</p>
+              <div class="news-list">
+                <div class="news-item"><span class="news-bullet"></span><span>मेष राशि: आज धन लाभ के प्रबल योग, सतर्क रहें</span></div>
+                <div class="news-item"><span class="news-bullet"></span><span>वृषभ राशि: स्वास्थ्य पर ध्यान दें, नया काम शुभ</span></div>
+                <div class="news-item"><span class="news-bullet"></span><span>मिथुन राशि: परिवार में खुशी, प्रेम जीवन में मिठास</span></div>
+              </div>
+            </div>
+            <div class="slide-cta-wrap">
+              <button class="slide-cta" onclick="goTo(4)">
+                See more news
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+        </div><!-- /slide-3 -->
+
+        <!-- ── SLIDE 4 — खेल ── -->
+        <div class="slide slide-4" role="group" aria-label="5 of 5">
+
+          <div class="pagination">
+            <button class="skip-btn hidden" aria-hidden="true">छोड़ें</button>
+            <div class="dots">
+              <button class="dot slide-0-dot inactive" onclick="goTo(0)" aria-label="Slide 1"></button>
+              <button class="dot slide-1-dot inactive" onclick="goTo(1)" aria-label="Slide 2"></button>
+              <button class="dot slide-2-dot inactive" onclick="goTo(2)" aria-label="Slide 3"></button>
+              <button class="dot slide-3-dot inactive" onclick="goTo(3)" aria-label="Slide 4"></button>
+              <button class="dot slide-4-dot active"   onclick="goTo(4)" aria-label="Slide 5"></button>
+            </div>
+            <button class="skip-btn hidden" aria-hidden="true">x</button>
+          </div>
+
+          <div class="slide-body">
+            <div class="slide-art">
+              <div class="art-ring"></div>
+              <div class="art-icon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93 19.07 19.07"/><path d="M4.93 19.07 19.07 4.93"/></svg>
+              </div>
+            </div>
+            <div class="slide-content">
+              <h2 class="slide-title">खेल</h2>
+              <p class="slide-desc">क्रिकेट का LIVE स्कोर, IPL अपडेट, World Cup कवरेज और हर खेल की ताज़ा खबरें।</p>
+              <div class="news-list">
+                <div class="news-item"><span class="news-bullet"></span><span>IND vs ENG: रोहित शर्मा का शतक, भारत मज़बूत स्थिति में</span></div>
+                <div class="news-item"><span class="news-bullet"></span><span>IPL 2025: मुंबई इंडियंस ने चेन्नई को 6 विकेट से हराया</span></div>
+                <div class="news-item"><span class="news-bullet"></span><span>PV Sindhu ने जीता Indonesia Open का खिताब</span></div>
+              </div>
+            </div>
+            <div class="slide-cta-wrap">
+              <button class="slide-cta" onclick="window.location.href='lh-home-screen.html'">
+                होम पर जाएँ
+                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              </button>
+            </div>
+          </div>
+
+        </div><!-- /slide-4 -->
+
+      </div><!-- /carousel-track -->
+    </div><!-- /carousel-wrap -->
+
+  </div><!-- /feature-sheet -->
+
+</div><!-- /phone -->
+
+<script>
+  const TOTAL   = 5;
+  const AUTO_MS = 3800;
+  const track   = document.getElementById('track');
+  const progFill = document.getElementById('progressFill');
+  const frameW   = 412;
+
+  let current = 0;
+  let timer   = null;
+
+  function goTo(idx) {
+    current = Math.max(0, Math.min(TOTAL - 1, idx));
+    track.style.transform = `translateX(-${current * frameW}px)`;
+    updateProgress();
+    restartTimer();
+  }
+
+  function skipToHome() {
+    window.location.href = 'lh-home-screen.html';
+  }
+
+  function updateProgress() {
+    progFill.style.transition = 'none';
+    progFill.style.width = '0%';
+    progFill.className = `progress-fill slide-${current}-prog`;
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      progFill.style.transition = `width ${AUTO_MS}ms linear`;
+      progFill.style.width = '100%';
+    }));
+  }
+
+  function restartTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => goTo((current + 1) % TOTAL), AUTO_MS);
+  }
+
+  // Swipe support
+  let touchStartX = 0;
+  const wrap = document.getElementById('carouselWrap');
+  wrap.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  wrap.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+
+  // Init
+  goTo(0);
+</script>
+</body>
+</html>
