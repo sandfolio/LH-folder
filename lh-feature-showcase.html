@@ -135,7 +135,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 24px 28px 8px;
+      padding: 8px 28px 24px;
       gap: 0;
       min-height: 0;
     }
@@ -314,11 +314,12 @@
 
     /* ─── Pagination ──────────────────────────────────── */
     .pagination {
-      padding: 0 24px 24px;
+      padding: 10px 24px 6px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-shrink: 0;
+      order: -1; /* visually moves pagination above slide-body */
     }
     .dots {
       display: flex;
@@ -388,6 +389,42 @@
     .slide-3-prog { background: var(--s3-acc); }
     .slide-4-prog { background: var(--s4-acc); }
 
+    /* ─── News list ─────────────────────────────────────── */
+    .news-list {
+      margin-top: 16px;
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(0,0,0,0.07);
+      text-align: left;
+    }
+    .news-item {
+      padding: 9px 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .news-item:last-child { border-bottom: none; }
+    .news-bullet {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+    .slide-0 .news-bullet { background: var(--s0-acc); }
+    .slide-1 .news-bullet { background: var(--s1-acc); }
+    .slide-2 .news-bullet { background: var(--s2-acc); }
+    .slide-3 .news-bullet { background: var(--s3-acc); }
+    .slide-4 .news-bullet { background: var(--s4-acc); }
+    .news-headline {
+      font-family: var(--font-deva);
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--ink-700);
+    }
+
     /* ─── Reduced motion ──────────────────────────────── */
     @media (prefers-reduced-motion: reduce) {
       .track { transition: none; }
@@ -435,17 +472,18 @@
         </div>
 
         <div class="slide-content">
-          <div class="slide-eyebrow">
-            <span class="eyebrow-dot"></span>
-            Feature 01
-          </div>
           <h2 class="slide-title">स्थानीय खबरें</h2>
           <p class="slide-desc">अपने शहर और राज्य की हर ताज़ा और ज़रूरी खबर सबसे पहले पढ़ें। दिल्ली, UP, बिहार, राजस्थान और अपने जिले की अपडेट।</p>
+          <div class="news-list">
+            <div class="news-item"><span class="news-bullet"></span><span class="news-headline">दिल्ली में भारी बारिश के बाद जलभराव, कई इलाकों में यातायात ठप</span></div>
+            <div class="news-item"><span class="news-bullet"></span><span class="news-headline">UP: सीएम योगी ने किसानों को दिया 1000 करोड़ की राहत</span></div>
+            <div class="news-item"><span class="news-bullet"></span><span class="news-headline">बिहार बोर्ड रिजल्ट घोषित, 80% छात्र पास</span></div>
+          </div>
         </div>
 
         <div class="slide-cta-wrap">
           <button class="slide-cta" onclick="goToSlide(1)">
-            अगली विशेषता देखें
+            See more news
             <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
         </div>
@@ -483,17 +521,18 @@
         </div>
 
         <div class="slide-content">
-          <div class="slide-eyebrow">
-            <span class="eyebrow-dot"></span>
-            Feature 02
-          </div>
           <h2 class="slide-title">काम की खबर</h2>
           <p class="slide-desc">रोज़मर्रा की ज़िंदगी से जुड़ी ज़रूरी जानकारी — सरकारी योजनाएँ, स्वास्थ्य सुझाव, मौसम और बाज़ार भाव एक जगह।</p>
+          <div class="news-list">
+            <div class="news-item"><span class="news-bullet"></span><span class="news-headline">PM किसान 16वीं किस्त आज आई, ऐसे चेक करें स्टेटस</span></div>
+            <div class="news-item"><span class="news-bullet"></span><span class="news-headline">पेट्रोल-डीजल नए रेट जारी, जानें आपके शहर में दाम</span></div>
+            <div class="news-item"><span class="news-bullet"></span><span class="news-headline">मानसून: अगले 48 घंटे में इन राज्यों में भारी बारिश</span></div>
+          </div>
         </div>
 
         <div class="slide-cta-wrap">
           <button class="slide-cta" onclick="goToSlide(2)">
-            अगली विशेषता देखें
+            See more news
             <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
         </div>
@@ -532,17 +571,18 @@
         </div>
 
         <div class="slide-content">
-          <div class="slide-eyebrow">
-            <span class="eyebrow-dot"></span>
-            Feature 03
-          </div>
           <h2 class="slide-title">सरकारी नौकरी</h2>
           <p class="slide-desc">UPSC, SSC, Railway, Bank और राज्य सरकार की हज़ारों Vacancy। Admit Card, Result और परीक्षा तारीखें तुरंत जानें।</p>
+          <div class="news-list">
+            <div class="news-item"><span class="news-bullet"></span><span class="news-headline">UPSC 2025: 1105 पदों पर भर्ती, आवेदन शुरू</span></div>
+            <div class="news-item"><span class="news-bullet"></span><span class="news-headline">Railway में 35,281 रिक्तियाँ — अंतिम तारीख 15 जुलाई</span></div>
+            <div class="news-item"><span class="news-bullet"></span><span class="news-headline">SSC CGL 2025 Notification जारी, 17,727 पद</span></div>
+          </div>
         </div>
 
         <div class="slide-cta-wrap">
           <button class="slide-cta" onclick="goToSlide(3)">
-            अगली विशेषता देखें
+            See more news
             <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
         </div>
@@ -582,17 +622,18 @@
         </div>
 
         <div class="slide-content">
-          <div class="slide-eyebrow">
-            <span class="eyebrow-dot"></span>
-            Feature 04
-          </div>
           <h2 class="slide-title">राशिफल</h2>
           <p class="slide-desc">सभी 12 राशियों का आज का विस्तृत राशिफल, पंचांग, शुभ मुहूर्त, व्रत-त्योहार और ज्योतिष परामर्श हिंदी में।</p>
+          <div class="news-list">
+            <div class="news-item"><span class="news-bullet"></span><span class="news-headline">मेष राशि: आज धन लाभ के प्रबल योग, सतर्क रहें</span></div>
+            <div class="news-item"><span class="news-bullet"></span><span class="news-headline">वृषभ राशि: स्वास्थ्य पर ध्यान दें, नया काम शुभ</span></div>
+            <div class="news-item"><span class="news-bullet"></span><span class="news-headline">मिथुन राशि: परिवार में खुशी, प्रेम जीवन में मिठास</span></div>
+          </div>
         </div>
 
         <div class="slide-cta-wrap">
           <button class="slide-cta" onclick="goToSlide(4)">
-            अगली विशेषता देखें
+            See more news
             <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
         </div>
@@ -632,12 +673,13 @@
         </div>
 
         <div class="slide-content">
-          <div class="slide-eyebrow">
-            <span class="eyebrow-dot"></span>
-            Feature 05
-          </div>
           <h2 class="slide-title">खेल</h2>
           <p class="slide-desc">क्रिकेट का LIVE स्कोर, IPL अपडेट, World Cup कवरेज, फुटबॉल, बैडमिंटन और हर खेल की ताज़ा खबरें।</p>
+          <div class="news-list">
+            <div class="news-item"><span class="news-bullet"></span><span class="news-headline">IND vs ENG: रोहित शर्मा का शतक, भारत मज़बूत स्थिति में</span></div>
+            <div class="news-item"><span class="news-bullet"></span><span class="news-headline">IPL 2025: मुंबई इंडियंस ने चेन्नई को 6 विकेट से हराया</span></div>
+            <div class="news-item"><span class="news-bullet"></span><span class="news-headline">PV Sindhu ने जीता Indonesia Open का खिताब</span></div>
+          </div>
         </div>
 
         <div class="slide-cta-wrap">
