@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="hi" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>लाइव हिन्दुस्तान — विशेषताएँ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ─── Tokens ─────────────────────────────────────── */
+    :root {
+      --khabar-600: #B71C1C;
+      --khabar-700: #9E1414;
+      --khabar-50:  #FFF5F5;
+
+      --ink-900: #0F1A2E;
+      --ink-700: #374151;
+      --ink-500: #6B7280;
+      --surface: #FFFFFF;
+      --line:    #E5E7EB;
+
+      --radius-sm:   4px;
+      --radius-lg:  12px;
+      --radius-full: 9999px;
+
+      --duration-sm:  160ms;
+      --duration-md:  280ms;
+      --duration-slide: 520ms;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+      --font-deva:  'Noto Sans Devanagari', sans-serif;
+      --font-latin: 'Poppins', sans-serif;
+
+      --frame-w: 412px;
+      --frame-h: 917px;
+
+      /* slide themes */
+      --s0-bg:    #E8F5E9; --s0-mid:   #C8E6C9; --s0-acc:   #1B5E20; --s0-deep:  #1B5E20;
+      --s1-bg:    #FFF3E0; --s1-mid:   #FFE0B2; --s1-acc:   #E65100; --s1-deep:  #BF360C;
+      --s2-bg:    #E8EAF6; --s2-mid:   #C5CAE9; --s2-acc:   #1A237E; --s2-deep:  #0D1463;
+      --s3-bg:    #F3E5F5; --s3-mid:   #E1BEE7; --s3-acc:   #6A1B9A; --s3-deep:  #4A148C;
+      --s4-bg:    #FFF5F5; --s4-mid:   #FFCDD2; --s4-acc:   #B71C1C; --s4-deep:  #7F0000;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html {
+      background: #111827;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    body { font-family: var(--font-deva); -webkit-font-smoothing: antialiased; }
+    button { font: inherit; cursor: pointer; border: none; background: none; }
+    svg { display: block; }
+
+    /* ─── Phone Frame ─────────────────────────────────── */
+    .phone {
+      width: var(--frame-w);
+      height: var(--frame-h);
+      border-radius: 44px;
+      overflow: hidden;
+      position: relative;
+      box-shadow:
+        0 0 0 2px rgba(255,255,255,0.10),
+        0 40px 100px rgba(0,0,0,0.60);
+      display: flex;
+      flex-direction: column;
+      background: var(--khabar-50);
+    }
+
+    /* ─── Status bar ──────────────────────────────────── */
+    .status-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 36px;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px 0 22px;
+      pointer-events: none;
+    }
+    .status-time {
+      font-family: var(--font-latin);
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .status-icons svg { width:14px; height:14px; stroke:currentColor; stroke-width:2; fill:none; }
+
+    /* ─── Slide Track ─────────────────────────────────── */
+    .track-wrap {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+    .track {
+      display: flex;
+      width: 500%; /* 5 slides */
+      height: 100%;
+      transition: transform var(--duration-slide) var(--ease-out);
+      will-change: transform;
+    }
+
+    /* ─── Individual Slide ────────────────────────────── */
+    .slide {
+      width: calc(var(--frame-w));
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    /* Slide colour themes */
+    .slide-0 { background: var(--s0-bg); }
+    .slide-1 { background: var(--s1-bg); }
+    .slide-2 { background: var(--s2-bg); }
+    .slide-3 { background: var(--s3-bg); }
+    .slide-4 { background: var(--s4-bg); }
+
+    /* ─── Illustration zone ───────────────────────────── */
+    .slide-art {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 36px 32px 16px;
+      min-height: 0;
+    }
+
+    /* Large background circle */
+    .art-ring {
+      position: absolute;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      opacity: 0.35;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .slide-0 .art-ring { background: var(--s0-mid); }
+    .slide-1 .art-ring { background: var(--s1-mid); }
+    .slide-2 .art-ring { background: var(--s2-mid); }
+    .slide-3 .art-ring { background: var(--s3-mid); }
+    .slide-4 .art-ring { background: var(--s4-mid); }
+
+    /* Icon container */
+    .art-icon {
+      width: 160px; height: 160px;
+      border-radius: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+    }
+    .slide-0 .art-icon { background: #C8E6C9; box-shadow: 0 16px 48px rgba(27,94,32,0.22); }
+    .slide-1 .art-icon { background: #FFE0B2; box-shadow: 0 16px 48px rgba(230,81,0,0.22); }
+    .slide-2 .art-icon { background: #C5CAE9; box-shadow: 0 16px 48px rgba(26,35,126,0.22); }
+    .slide-3 .art-icon { background: #E1BEE7; box-shadow: 0 16px 48px rgba(106,27,154,0.22); }
+    .slide-4 .art-icon { background: #FFCDD2; box-shadow: 0 16px 48px rgba(183,28,28,0.22); }
+
+    .art-icon svg {
+      width: 80px; height: 80px;
+      stroke-width: 1.2;
+      fill: none;
+    }
+    .slide-0 .art-icon svg { stroke: var(--s0-acc); }
+    .slide-1 .art-icon svg { stroke: var(--s1-acc); }
+    .slide-2 .art-icon svg { stroke: var(--s2-acc); }
+    .slide-3 .art-icon svg { stroke: var(--s3-acc); }
+    .slide-4 .art-icon svg { stroke: var(--s4-acc); }
+
+    /* Floating accent badges */
+    .art-badge {
+      position: absolute;
+      border-radius: var(--radius-lg);
+      padding: 6px 12px;
+      font-family: var(--font-latin);
+      font-size: 11px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      z-index: 3;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+    }
+    .art-badge svg { width:13px; height:13px; stroke:currentColor; stroke-width:2; fill:none; flex-shrink:0; }
+
+    .badge-tl { top: 28px; left: 20px; }
+    .badge-tr { top: 48px; right: 16px; }
+    .badge-bl { bottom: 28px; left: 16px; }
+    .badge-br { bottom: 32px; right: 20px; }
+
+    .slide-0 .art-badge { background: rgba(200,230,201,0.85); color: var(--s0-acc); }
+    .slide-1 .art-badge { background: rgba(255,224,178,0.85); color: var(--s1-acc); }
+    .slide-2 .art-badge { background: rgba(197,202,233,0.85); color: var(--s2-acc); }
+    .slide-3 .art-badge { background: rgba(225,190,231,0.85); color: var(--s3-acc); }
+    .slide-4 .art-badge { background: rgba(255,205,210,0.85); color: var(--s4-acc); }
+
+    /* ─── Content zone ────────────────────────────────── */
+    .slide-content {
+      padding: 20px 24px 0;
+      flex-shrink: 0;
+    }
+    .slide-eyebrow {
+      font-family: var(--font-latin);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .slide-0 .slide-eyebrow { color: var(--s0-acc); }
+    .slide-1 .slide-eyebrow { color: var(--s1-acc); }
+    .slide-2 .slide-eyebrow { color: var(--s2-acc); }
+    .slide-3 .slide-eyebrow { color: var(--s3-acc); }
+    .slide-4 .slide-eyebrow { color: var(--s4-acc); }
+
+    .eyebrow-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .slide-0 .eyebrow-dot { background: var(--s0-acc); }
+    .slide-1 .eyebrow-dot { background: var(--s1-acc); }
+    .slide-2 .eyebrow-dot { background: var(--s2-acc); }
+    .slide-3 .eyebrow-dot { background: var(--s3-acc); }
+    .slide-4 .eyebrow-dot { background: var(--s4-acc); }
+
+    .slide-title {
+      font-family: var(--font-deva);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--ink-900);
+      line-height: 1.3;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+    .slide-desc {
+      font-family: var(--font-deva);
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--ink-500);
+      line-height: 1.7;
+    }
+
+    /* ─── CTA ─────────────────────────────────────────── */
+    .slide-cta-wrap {
+      padding: 20px 24px 16px;
+      flex-shrink: 0;
+    }
+    .slide-cta {
+      width: 100%;
+      height: 52px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-deva);
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: opacity var(--duration-sm), transform var(--duration-sm);
+    }
+    .slide-cta:active { opacity: 0.88; transform: scale(0.98); }
+    .slide-cta svg { width:18px; height:18px; stroke:#fff; stroke-width:2.5; fill:none; }
+
+    .slide-0 .slide-cta { background: var(--s0-acc); }
+    .slide-1 .slide-cta { background: var(--s1-acc); }
+    .slide-2 .slide-cta { background: var(--s2-acc); }
+    .slide-3 .slide-cta { background: var(--s3-acc); }
+    .slide-4 .slide-cta { background: var(--s4-acc); }
+
+    /* ─── Pagination ──────────────────────────────────── */
+    .pagination {
+      padding: 0 24px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .dots {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .dot {
+      height: 6px;
+      border-radius: var(--radius-full);
+      transition: width var(--duration-md) var(--ease-out), background var(--duration-md);
+      cursor: pointer;
+    }
+    .dot.inactive {
+      width: 6px;
+      background: rgba(15,26,46,0.18);
+    }
+    .dot.active {
+      width: 24px;
+    }
+    .slide-0-dot.active { background: var(--s0-acc); }
+    .slide-1-dot.active { background: var(--s1-acc); }
+    .slide-2-dot.active { background: var(--s2-acc); }
+    .slide-3-dot.active { background: var(--s3-acc); }
+    .slide-4-dot.active { background: var(--s4-acc); }
+
+    .skip-btn {
+      font-family: var(--font-latin);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink-500);
+      padding: 6px 4px;
+      transition: color var(--duration-sm);
+    }
+    .skip-btn:hover { color: var(--ink-900); }
+    .skip-btn.hidden { visibility: hidden; }
+
+    .next-btn {
+      font-family: var(--font-latin);
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 4px;
+      transition: opacity var(--duration-sm);
+    }
+    .next-btn svg { width:16px; height:16px; stroke:currentColor; stroke-width:2.5; fill:none; }
+
+    /* ─── Progress bar ────────────────────────────────── */
+    .progress-bar {
+      position: absolute;
+      top: 36px; left: 0; right: 0;
+      height: 2px;
+      z-index: 20;
+      background: rgba(15,26,46,0.08);
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      transition: width linear;
+    }
+
+    /* per-slide accent on progress bar */
+    .slide-0-prog { background: var(--s0-acc); }
+    .slide-1-prog { background: var(--s1-acc); }
+    .slide-2-prog { background: var(--s2-acc); }
+    .slide-3-prog { background: var(--s3-acc); }
+    .slide-4-prog { background: var(--s4-acc); }
+
+    /* ─── Reduced motion ──────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      .track { transition: none; }
+      .dot, .progress-fill { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="phone" id="phone">
+
+  <!-- Status bar -->
+  <div class="status-bar" id="statusBar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <svg viewBox="0 0 24 24"><path d="M1 6l4.5 4.5M6 2l7 7M11.5 0l9 9M16 5l4 4" stroke-linecap="round"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01" stroke-linecap="round"/></svg>
+      <svg viewBox="0 0 24 24"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2" stroke-linecap="round"/><rect x="3.5" y="8.5" width="13" height="7" rx="1" fill="currentColor" opacity="0.7"/></svg>
+    </span>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="progress-bar" aria-hidden="true">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+
+  <!-- Slide track -->
+  <div class="track-wrap">
+    <div class="track" id="track">
+
+      <!-- ──────────────────────────────────────── -->
+      <!-- SLIDE 0 — स्थानीय खबरें               -->
+      <!-- ──────────────────────────────────────── -->
+      <div class="slide slide-0" role="group" aria-label="स्लाइड 1 में से 5">
+
+        <div class="slide-art">
+          <div class="art-ring"></div>
+
+          <!-- Floating badges -->
+          <div class="art-badge badge-tl">
+            <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            दिल्ली NCR
+          </div>
+          <div class="art-badge badge-tr">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            अभी · LIVE
+          </div>
+          <div class="art-badge badge-bl">
+            <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            उत्तर प्रदेश
+          </div>
+          <div class="art-badge badge-br">
+            <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            बिहार
+          </div>
+
+          <div class="art-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="slide-content">
+          <div class="slide-eyebrow">
+            <span class="eyebrow-dot"></span>
+            Feature 01
+          </div>
+          <h2 class="slide-title">स्थानीय खबरें</h2>
+          <p class="slide-desc">अपने शहर और राज्य की हर ताज़ा और ज़रूरी खबर सबसे पहले पढ़ें। दिल्ली, UP, बिहार, राजस्थान और अपने जिले की अपडेट।</p>
+        </div>
+
+        <div class="slide-cta-wrap">
+          <button class="slide-cta" onclick="goToSlide(1)">
+            अगली विशेषता देखें
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <div class="pagination">
+          <button class="skip-btn" onclick="skipToHome()">छोड़ें</button>
+          <div class="dots" role="tablist" aria-label="स्लाइड नेविगेशन">
+            <button class="dot slide-0-dot active" role="tab" aria-selected="true"  onclick="goToSlide(0)" aria-label="स्लाइड 1"></button>
+            <button class="dot slide-1-dot inactive" role="tab" aria-selected="false" onclick="goToSlide(1)" aria-label="स्लाइड 2"></button>
+            <button class="dot slide-2-dot inactive" role="tab" aria-selected="false" onclick="goToSlide(2)" aria-label="स्लाइड 3"></button>
+            <button class="dot slide-3-dot inactive" role="tab" aria-selected="false" onclick="goToSlide(3)" aria-label="स्लाइड 4"></button>
+            <button class="dot slide-4-dot inactive" role="tab" aria-selected="false" onclick="goToSlide(4)" aria-label="स्लाइड 5"></button>
+          </div>
+          <button class="next-btn" onclick="goToSlide(1)" style="color:#1B5E20;">
+            आगे
+            <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+
+      </div><!-- /slide-0 -->
+
+      <!-- ──────────────────────────────────────── -->
+      <!-- SLIDE 1 — काम की खबर                  -->
+      <!-- ──────────────────────────────────────── -->
+      <div class="slide slide-1" role="group" aria-label="स्लाइड 2 में से 5">
+
+        <div class="slide-art">
+          <div class="art-ring"></div>
+
+          <div class="art-badge badge-tl">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            सरकारी योजना
+          </div>
+          <div class="art-badge badge-tr">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            स्वास्थ्य
+          </div>
+          <div class="art-badge badge-bl">
+            <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            मौसम
+          </div>
+          <div class="art-badge badge-br">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            ज़रूरी
+          </div>
+
+          <div class="art-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="slide-content">
+          <div class="slide-eyebrow">
+            <span class="eyebrow-dot"></span>
+            Feature 02
+          </div>
+          <h2 class="slide-title">काम की खबर</h2>
+          <p class="slide-desc">रोज़मर्रा की ज़िंदगी से जुड़ी ज़रूरी जानकारी — सरकारी योजनाएँ, स्वास्थ्य सुझाव, मौसम और बाज़ार भाव एक जगह।</p>
+        </div>
+
+        <div class="slide-cta-wrap">
+          <button class="slide-cta" onclick="goToSlide(2)">
+            अगली विशेषता देखें
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <div class="pagination">
+          <button class="skip-btn" onclick="skipToHome()">छोड़ें</button>
+          <div class="dots" role="tablist">
+            <button class="dot slide-0-dot inactive" onclick="goToSlide(0)" aria-label="स्लाइड 1"></button>
+            <button class="dot slide-1-dot active"   onclick="goToSlide(1)" aria-label="स्लाइड 2"></button>
+            <button class="dot slide-2-dot inactive" onclick="goToSlide(2)" aria-label="स्लाइड 3"></button>
+            <button class="dot slide-3-dot inactive" onclick="goToSlide(3)" aria-label="स्लाइड 4"></button>
+            <button class="dot slide-4-dot inactive" onclick="goToSlide(4)" aria-label="स्लाइड 5"></button>
+          </div>
+          <button class="next-btn" onclick="goToSlide(2)" style="color:#E65100;">
+            आगे
+            <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+
+      </div><!-- /slide-1 -->
+
+      <!-- ──────────────────────────────────────── -->
+      <!-- SLIDE 2 — सरकारी नौकरी               -->
+      <!-- ──────────────────────────────────────── -->
+      <div class="slide slide-2" role="group" aria-label="स्लाइड 3 में से 5">
+
+        <div class="slide-art">
+          <div class="art-ring"></div>
+
+          <div class="art-badge badge-tl">
+            <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            UPSC 2026
+          </div>
+          <div class="art-badge badge-tr">
+            <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            Railway
+          </div>
+          <div class="art-badge badge-bl">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Admit Card
+          </div>
+          <div class="art-badge badge-br">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Result
+          </div>
+
+          <div class="art-icon">
+            <svg viewBox="0 0 24 24">
+              <rect x="2" y="7" width="20" height="14" rx="2"/>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="slide-content">
+          <div class="slide-eyebrow">
+            <span class="eyebrow-dot"></span>
+            Feature 03
+          </div>
+          <h2 class="slide-title">सरकारी नौकरी</h2>
+          <p class="slide-desc">UPSC, SSC, Railway, Bank और राज्य सरकार की हज़ारों Vacancy। Admit Card, Result और परीक्षा तारीखें तुरंत जानें।</p>
+        </div>
+
+        <div class="slide-cta-wrap">
+          <button class="slide-cta" onclick="goToSlide(3)">
+            अगली विशेषता देखें
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <div class="pagination">
+          <button class="skip-btn" onclick="skipToHome()">छोड़ें</button>
+          <div class="dots" role="tablist">
+            <button class="dot slide-0-dot inactive" onclick="goToSlide(0)" aria-label="स्लाइड 1"></button>
+            <button class="dot slide-1-dot inactive" onclick="goToSlide(1)" aria-label="स्लाइड 2"></button>
+            <button class="dot slide-2-dot active"   onclick="goToSlide(2)" aria-label="स्लाइड 3"></button>
+            <button class="dot slide-3-dot inactive" onclick="goToSlide(3)" aria-label="स्लाइड 4"></button>
+            <button class="dot slide-4-dot inactive" onclick="goToSlide(4)" aria-label="स्लाइड 5"></button>
+          </div>
+          <button class="next-btn" onclick="goToSlide(3)" style="color:#1A237E;">
+            आगे
+            <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+
+      </div><!-- /slide-2 -->
+
+      <!-- ──────────────────────────────────────── -->
+      <!-- SLIDE 3 — राशिफल                       -->
+      <!-- ──────────────────────────────────────── -->
+      <div class="slide slide-3" role="group" aria-label="स्लाइड 4 में से 5">
+
+        <div class="slide-art">
+          <div class="art-ring"></div>
+
+          <div class="art-badge badge-tl">♈ मेष</div>
+          <div class="art-badge badge-tr">♋ कर्क</div>
+          <div class="art-badge badge-bl">♎ तुला</div>
+          <div class="art-badge badge-br">♑ मकर</div>
+
+          <div class="art-icon">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              <path d="M2 12h20"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="slide-content">
+          <div class="slide-eyebrow">
+            <span class="eyebrow-dot"></span>
+            Feature 04
+          </div>
+          <h2 class="slide-title">राशिफल</h2>
+          <p class="slide-desc">सभी 12 राशियों का आज का विस्तृत राशिफल, पंचांग, शुभ मुहूर्त, व्रत-त्योहार और ज्योतिष परामर्श हिंदी में।</p>
+        </div>
+
+        <div class="slide-cta-wrap">
+          <button class="slide-cta" onclick="goToSlide(4)">
+            अगली विशेषता देखें
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <div class="pagination">
+          <button class="skip-btn" onclick="skipToHome()">छोड़ें</button>
+          <div class="dots" role="tablist">
+            <button class="dot slide-0-dot inactive" onclick="goToSlide(0)" aria-label="स्लाइड 1"></button>
+            <button class="dot slide-1-dot inactive" onclick="goToSlide(1)" aria-label="स्लाइड 2"></button>
+            <button class="dot slide-2-dot inactive" onclick="goToSlide(2)" aria-label="स्लाइड 3"></button>
+            <button class="dot slide-3-dot active"   onclick="goToSlide(3)" aria-label="स्लाइड 4"></button>
+            <button class="dot slide-4-dot inactive" onclick="goToSlide(4)" aria-label="स्लाइड 5"></button>
+          </div>
+          <button class="next-btn" onclick="goToSlide(4)" style="color:#6A1B9A;">
+            आगे
+            <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+
+      </div><!-- /slide-3 -->
+
+      <!-- ──────────────────────────────────────── -->
+      <!-- SLIDE 4 — खेल                          -->
+      <!-- ──────────────────────────────────────── -->
+      <div class="slide slide-4" role="group" aria-label="स्लाइड 5 में से 5">
+
+        <div class="slide-art">
+          <div class="art-ring"></div>
+
+          <div class="art-badge badge-tl">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93 19.07 19.07"/></svg>
+            LIVE Score
+          </div>
+          <div class="art-badge badge-tr">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            IPL 2026
+          </div>
+          <div class="art-badge badge-bl" style="font-family:'Poppins',sans-serif; font-size:12px; font-weight:700;">
+            IND 320/4
+          </div>
+          <div class="art-badge badge-br">
+            <svg viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>
+            World Cup
+          </div>
+
+          <div class="art-icon">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M4.93 4.93 19.07 19.07"/>
+              <path d="M4.93 19.07 19.07 4.93"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="slide-content">
+          <div class="slide-eyebrow">
+            <span class="eyebrow-dot"></span>
+            Feature 05
+          </div>
+          <h2 class="slide-title">खेल</h2>
+          <p class="slide-desc">क्रिकेट का LIVE स्कोर, IPL अपडेट, World Cup कवरेज, फुटबॉल, बैडमिंटन और हर खेल की ताज़ा खबरें।</p>
+        </div>
+
+        <div class="slide-cta-wrap">
+          <button class="slide-cta" onclick="window.location.href='lh-home-screen.html'">
+            होम पर जाएँ
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </button>
+        </div>
+
+        <div class="pagination">
+          <button class="skip-btn hidden" aria-hidden="true">छोड़ें</button>
+          <div class="dots" role="tablist">
+            <button class="dot slide-0-dot inactive" onclick="goToSlide(0)" aria-label="स्लाइड 1"></button>
+            <button class="dot slide-1-dot inactive" onclick="goToSlide(1)" aria-label="स्लाइड 2"></button>
+            <button class="dot slide-2-dot inactive" onclick="goToSlide(2)" aria-label="स्लाइड 3"></button>
+            <button class="dot slide-3-dot inactive" onclick="goToSlide(3)" aria-label="स्लाइड 4"></button>
+            <button class="dot slide-4-dot active"   onclick="goToSlide(4)" aria-label="स्लाइड 5"></button>
+          </div>
+          <button class="skip-btn hidden" aria-hidden="true">x</button>
+        </div>
+
+      </div><!-- /slide-4 -->
+
+    </div><!-- /track -->
+  </div><!-- /track-wrap -->
+
+</div><!-- /phone -->
+
+<script>
+  const TOTAL     = 5;
+  const AUTO_MS   = 3800;   // auto-advance interval
+  const track     = document.getElementById('track');
+  const progFill  = document.getElementById('progressFill');
+  const frameW    = 412;
+
+  let current    = 0;
+  let timer      = null;
+  let progTimer  = null;
+
+  const ACCENT_COLORS = ['#1B5E20','#E65100','#1A237E','#6A1B9A','#B71C1C'];
+
+  function goToSlide(idx) {
+    current = Math.max(0, Math.min(TOTAL - 1, idx));
+    track.style.transform = `translateX(-${current * frameW}px)`;
+    updateProgressBar();
+    restartTimer();
+  }
+
+  function updateProgressBar() {
+    // reset animation
+    progFill.style.transition = 'none';
+    progFill.style.width = '0%';
+    progFill.className = `progress-fill slide-${current}-prog`;
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        progFill.style.transition = `width ${AUTO_MS}ms linear`;
+        progFill.style.width = '100%';
+      });
+    });
+  }
+
+  function restartTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => {
+      const next = (current + 1) % TOTAL;
+      goToSlide(next);
+    }, AUTO_MS);
+  }
+
+  // Touch / swipe support
+  let touchStartX = 0;
+  const phone = document.getElementById('phone');
+  phone.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+    clearInterval(timer); // pause on touch
+  }, { passive: true });
+  phone.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 40) {
+      goToSlide(dx < 0 ? current + 1 : current - 1);
+    } else {
+      restartTimer();
+    }
+  });
+
+  function skipToHome() {
+    window.location.href = 'lh-home-screen.html';
+  }
+
+  // Boot
+  goToSlide(0);
+</script>
+
+</body>
+</html>
