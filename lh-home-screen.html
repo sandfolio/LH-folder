@@ -80,15 +80,21 @@
       flex-direction: column;
     }
 
+    /* ─── Top Nav Wrapper — single edge-to-edge pink block ── */
+    .top-nav-block {
+      background: var(--khabar-50);
+      flex-shrink: 0;
+      width: 100%;
+    }
+
     /* ─── Status Bar ──────────────────────────────────── */
     .status-bar {
-      background: var(--khabar-50);
+      background: transparent;
       height: 36px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 18px 0 22px;
-      flex-shrink: 0;
     }
     .status-time {
       font-family: var(--font-latin);
@@ -106,8 +112,7 @@
 
     /* ─── App Header ──────────────────────────────────── */
     .app-header {
-      background: var(--khabar-50);
-      flex-shrink: 0;
+      background: transparent;
     }
     .app-header-row {
       height: 54px;
@@ -189,12 +194,11 @@
 
     /* ─── Category Nav ────────────────────────────────── */
     .category-nav {
-      background: var(--khabar-50);
+      background: transparent;
       overflow-x: auto;
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
-      flex-shrink: 0;
-      padding: 8px 14px 10px;
+      padding: 6px 14px 12px;
       display: flex;
       gap: 8px;
       align-items: center;
@@ -239,8 +243,8 @@
       overflow-x: auto;
       scrollbar-width: none;
       flex-shrink: 0;
-      border-top: 1px solid var(--line);
       border-bottom: 1px solid var(--line);
+      width: 100%;
     }
     .sub-nav::-webkit-scrollbar { display: none; }
     .sub-nav-inner {
@@ -736,6 +740,9 @@
 
 <div class="phone-frame" id="homeScreen">
 
+  <!-- ── Top Nav — single edge-to-edge pink block ── -->
+  <div class="top-nav-block">
+
   <!-- Status bar -->
   <div class="status-bar">
     <span class="status-time">9:41</span>
@@ -819,6 +826,8 @@
       <span class="pill-icon" aria-hidden="true">🎬</span>
     </button>
   </nav>
+
+  </div><!-- /top-nav-block -->
 
   <!-- Sub Nav with pipe separators -->
   <nav class="sub-nav" aria-label="उप-श्रेणियाँ">
