@@ -605,7 +605,7 @@
       z-index: 50;
       display: flex;
       flex-direction: column;
-      max-height: 74%;
+      max-height: 88%;
       box-shadow: 0 -8px 40px rgba(15,26,46,0.22);
       transform: translateY(100%);
       transition: transform 0.44s var(--ease-out);
@@ -663,36 +663,37 @@
     }
     .ws-body::-webkit-scrollbar { display: none; }
 
-    .ws-eyebrow {
-      font-family: var(--font-latin);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--ink-300);
+    /* ─── Feature Cards (showcase-matched style) ─────── */
+    .feat-card {
+      border-radius: 12px;
       margin-bottom: 10px;
+      overflow: hidden;
     }
+    .fc-local  { background: #E8F5E9; }
+    .fc-kaam   { background: #FFF3E0; }
+    .fc-jobs   { background: #E8EAF6; }
+    .fc-astro  { background: #F3E5F5; }
+    .fc-sports { background: #FFF5F5; }
 
-    .feat-row {
+    .feat-card-header {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--line);
+      gap: 10px;
+      padding: 12px 12px 8px;
     }
-    .feat-row:last-child { border-bottom: none; }
     .feat-icon {
-      width: 38px; height: 38px;
-      border-radius: var(--radius-md);
+      width: 40px; height: 40px;
+      border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
     }
-    .feat-icon svg { width:20px; height:20px; stroke:currentColor; stroke-width:1.6; fill:none; }
-    .fi-local  { background: #E8F5E9; color: #1B5E20; }
-    .fi-kaam   { background: #FFF3E0; color: #E65100; }
-    .fi-jobs   { background: #E8EAF6; color: #1A237E; }
-    .fi-astro  { background: #F3E5F5; color: #6A1B9A; }
-    .fi-sports { background: #FFF5F5; color: var(--khabar-600); }
+    .feat-icon svg { width:22px; height:22px; stroke:currentColor; stroke-width:1.6; fill:none; }
+    .fi-local  { background: #C8E6C9; color: #1B5E20; }
+    .fi-kaam   { background: #FFE0B2; color: #E65100; }
+    .fi-jobs   { background: #C5CAE9; color: #1A237E; }
+    .fi-astro  { background: #E1BEE7; color: #6A1B9A; }
+    .fi-sports { background: #FFCDD2; color: var(--khabar-600); }
+
     .feat-text { flex: 1; min-width: 0; }
     .feat-name {
       font-family: var(--font-deva);
@@ -703,12 +704,43 @@
     }
     .feat-desc {
       font-family: var(--font-deva);
-      font-size: 12px;
+      font-size: 11px;
       color: var(--ink-500);
       line-height: 1.4;
     }
-    .feat-chevron { color: var(--ink-300); flex-shrink: 0; }
+    .feat-chevron { color: var(--ink-300); flex-shrink: 0; margin-left: auto; }
     .feat-chevron svg { width:16px; height:16px; stroke:currentColor; stroke-width:2; fill:none; }
+
+    .feat-news-list {
+      margin: 0 12px 12px;
+      background: rgba(255,255,255,0.72);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    .feat-news-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      padding: 7px 10px;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      font-family: var(--font-deva);
+      font-size: 11.5px;
+      line-height: 1.45;
+      color: var(--ink-700);
+    }
+    .feat-news-item:last-child { border-bottom: none; }
+    .feat-news-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+    .fc-local  .feat-news-dot { background: #1B5E20; }
+    .fc-kaam   .feat-news-dot { background: #E65100; }
+    .fc-jobs   .feat-news-dot { background: #1A237E; }
+    .fc-astro  .feat-news-dot { background: #6A1B9A; }
+    .fc-sports .feat-news-dot { background: var(--khabar-600); }
 
     .ws-footer {
       padding: 14px 16px;
@@ -1044,61 +1076,95 @@
     <div class="ws-divider" aria-hidden="true"></div>
 
     <div class="ws-body">
-      <p class="ws-eyebrow">अंदर क्या है</p>
 
-      <div class="feat-row">
-        <div class="feat-icon fi-local" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+      <!-- स्थानीय खबरें -->
+      <div class="feat-card fc-local">
+        <div class="feat-card-header">
+          <div class="feat-icon fi-local" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="feat-text">
+            <div class="feat-name">स्थानीय खबरें</div>
+            <div class="feat-desc">शहर-राज्य की हर ताज़ा खबर</div>
+          </div>
+          <div class="feat-chevron"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
         </div>
-        <div class="feat-text">
-          <div class="feat-name">स्थानीय खबरें</div>
-          <div class="feat-desc">शहर-राज्य की हर ताज़ा खबर</div>
+        <div class="feat-news-list">
+          <div class="feat-news-item"><span class="feat-news-dot"></span><span>दिल्ली में भारी बारिश, कई इलाकों में जलभराव</span></div>
+          <div class="feat-news-item"><span class="feat-news-dot"></span><span>UP: किसानों को 1000 करोड़ की राहत</span></div>
         </div>
-        <div class="feat-chevron"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
       </div>
 
-      <div class="feat-row">
-        <div class="feat-icon fi-kaam" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      <!-- काम की खबर -->
+      <div class="feat-card fc-kaam">
+        <div class="feat-card-header">
+          <div class="feat-icon fi-kaam" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <div class="feat-text">
+            <div class="feat-name">काम की खबर</div>
+            <div class="feat-desc">रोज़मर्रा की ज़रूरी जानकारी</div>
+          </div>
+          <div class="feat-chevron"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
         </div>
-        <div class="feat-text">
-          <div class="feat-name">काम की खबर</div>
-          <div class="feat-desc">रोज़मर्रा की ज़रूरी जानकारी</div>
+        <div class="feat-news-list">
+          <div class="feat-news-item"><span class="feat-news-dot"></span><span>PM किसान 16वीं किस्त — ऐसे चेक करें स्टेटस</span></div>
+          <div class="feat-news-item"><span class="feat-news-dot"></span><span>पेट्रोल-डीजल नए रेट जारी, जानें अपने शहर में</span></div>
         </div>
-        <div class="feat-chevron"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
       </div>
 
-      <div class="feat-row">
-        <div class="feat-icon fi-jobs" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+      <!-- सरकारी नौकरी -->
+      <div class="feat-card fc-jobs">
+        <div class="feat-card-header">
+          <div class="feat-icon fi-jobs" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          </div>
+          <div class="feat-text">
+            <div class="feat-name">सरकारी नौकरी</div>
+            <div class="feat-desc">Vacancy और परीक्षा अपडेट</div>
+          </div>
+          <div class="feat-chevron"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
         </div>
-        <div class="feat-text">
-          <div class="feat-name">सरकारी नौकरी</div>
-          <div class="feat-desc">Vacancy और परीक्षा अपडेट</div>
+        <div class="feat-news-list">
+          <div class="feat-news-item"><span class="feat-news-dot"></span><span>UPSC 2025: 1105 पदों पर भर्ती, आवेदन शुरू</span></div>
+          <div class="feat-news-item"><span class="feat-news-dot"></span><span>Railway में 35,281 रिक्तियाँ — तारीख 15 जुलाई</span></div>
         </div>
-        <div class="feat-chevron"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
       </div>
 
-      <div class="feat-row">
-        <div class="feat-icon fi-astro" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
+      <!-- राशिफल -->
+      <div class="feat-card fc-astro">
+        <div class="feat-card-header">
+          <div class="feat-icon fi-astro" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
+          </div>
+          <div class="feat-text">
+            <div class="feat-name">राशिफल</div>
+            <div class="feat-desc">आज का राशिफल व पंचांग</div>
+          </div>
+          <div class="feat-chevron"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
         </div>
-        <div class="feat-text">
-          <div class="feat-name">राशिफल</div>
-          <div class="feat-desc">आज का राशिफल व पंचांग</div>
+        <div class="feat-news-list">
+          <div class="feat-news-item"><span class="feat-news-dot"></span><span>मेष राशि: आज धन लाभ के प्रबल योग</span></div>
+          <div class="feat-news-item"><span class="feat-news-dot"></span><span>वृषभ राशि: नया काम शुभ, स्वास्थ्य पर ध्यान</span></div>
         </div>
-        <div class="feat-chevron"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
       </div>
 
-      <div class="feat-row">
-        <div class="feat-icon fi-sports" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93 19.07 19.07"/><path d="M4.93 19.07 19.07 4.93"/></svg>
+      <!-- खेल -->
+      <div class="feat-card fc-sports">
+        <div class="feat-card-header">
+          <div class="feat-icon fi-sports" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93 19.07 19.07"/><path d="M4.93 19.07 19.07 4.93"/></svg>
+          </div>
+          <div class="feat-text">
+            <div class="feat-name">खेल</div>
+            <div class="feat-desc">क्रिकेट लाइव स्कोर और IPL अपडेट</div>
+          </div>
+          <div class="feat-chevron"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
         </div>
-        <div class="feat-text">
-          <div class="feat-name">खेल</div>
-          <div class="feat-desc">क्रिकेट लाइव स्कोर और IPL अपडेट</div>
+        <div class="feat-news-list">
+          <div class="feat-news-item"><span class="feat-news-dot"></span><span>IND vs ENG: रोहित शर्मा का शतक, भारत आगे</span></div>
+          <div class="feat-news-item"><span class="feat-news-dot"></span><span>IPL 2025: मुंबई ने चेन्नई को 6 विकेट से हराया</span></div>
         </div>
-        <div class="feat-chevron"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
       </div>
 
     </div><!-- /ws-body -->
