@@ -82,12 +82,12 @@
 
     /* ─── Status Bar ──────────────────────────────────── */
     .status-bar {
-      background: var(--surface);
-      height: 40px;
+      background: var(--khabar-50);
+      height: 36px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 20px 0 24px;
+      padding: 0 18px 0 22px;
       flex-shrink: 0;
     }
     .status-time {
@@ -99,59 +99,53 @@
     .status-icons {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       color: var(--ink-900);
     }
-    .status-icons svg { width:16px; height:16px; stroke:currentColor; stroke-width:2; fill:none; }
+    .status-icons svg { width:15px; height:15px; stroke:currentColor; stroke-width:2; fill:none; }
 
     /* ─── App Header ──────────────────────────────────── */
     .app-header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--line);
+      background: var(--khabar-50);
       flex-shrink: 0;
-      box-shadow: var(--shadow-xs);
     }
     .app-header-row {
-      height: 52px;
+      height: 54px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 12px 0 4px;
+      padding: 0 14px 0 10px;
     }
     .header-left {
       display: flex;
       align-items: center;
-      gap: 2px;
+      gap: 6px;
     }
     .icon-btn {
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
       display: grid;
       place-items: center;
       border-radius: var(--radius-sm);
-      color: var(--ink-700);
+      color: var(--ink-900);
       transition: background var(--duration-sm);
     }
-    .icon-btn:hover { background: var(--surface-raised); }
+    .icon-btn:hover { background: rgba(0,0,0,0.05); }
     .icon-btn svg { width:22px; height:22px; stroke:currentColor; stroke-width:1.8; fill:none; }
 
+    /* HT Shield logo */
     .lh-wordmark {
       display: flex;
       align-items: center;
-      gap: 6px;
-      padding: 0 4px;
+      gap: 7px;
     }
-    .lh-logo-circle {
-      width: 32px; height: 32px;
-      background: var(--khabar-600);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
+    .ht-shield {
+      width: 30px; height: 34px;
       flex-shrink: 0;
     }
-    .lh-logo-circle svg { width:18px; height:18px; fill:none; stroke:#fff; stroke-width:2.2; }
     .lh-brand-text {
       font-family: var(--font-deva);
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 700;
       color: var(--khabar-600);
       letter-spacing: -0.02em;
@@ -161,7 +155,7 @@
     .header-right {
       display: flex;
       align-items: center;
-      gap: 2px;
+      gap: 4px;
     }
     .coin-badge {
       display: flex;
@@ -170,60 +164,74 @@
       background: var(--surface);
       border: 1.5px solid var(--coin-gold);
       border-radius: var(--radius-full);
-      padding: 4px 10px 4px 6px;
+      padding: 5px 12px 5px 5px;
       font-family: var(--font-latin);
       font-size: 13px;
       font-weight: 600;
       color: var(--ink-900);
     }
     .coin-circle {
-      width: 22px; height: 22px;
+      width: 24px; height: 24px;
       background: linear-gradient(135deg, #F59E0B, #D97706);
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
     }
-    .coin-circle svg { width:12px; height:12px; fill:#fff; }
+    .coin-circle-inner {
+      width: 16px; height: 16px;
+      background: var(--surface);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-latin);
+      font-size: 8px;
+      font-weight: 800;
+      color: #D97706;
+    }
 
     /* ─── Category Nav ────────────────────────────────── */
     .category-nav {
-      background: var(--surface);
+      background: var(--khabar-50);
       overflow-x: auto;
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
       flex-shrink: 0;
-      padding: 8px 12px;
+      padding: 8px 14px 10px;
       display: flex;
       gap: 8px;
       align-items: center;
-      border-bottom: 1px solid var(--line);
     }
     .category-nav::-webkit-scrollbar { display: none; }
 
+    /* Inactive pill */
     .cat-pill {
       display: flex;
       align-items: center;
-      gap: 5px;
-      padding: 6px 12px 6px 10px;
-      border-radius: var(--radius-full);
-      border: 1.5px solid var(--line);
+      gap: 7px;
+      padding: 8px 14px;
+      border-radius: 14px;
+      border: 1.5px solid var(--line-strong);
       font-family: var(--font-deva);
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 500;
       color: var(--ink-700);
       white-space: nowrap;
       flex-shrink: 0;
       background: var(--surface);
       transition: all var(--duration-sm);
+      line-height: 1.3;
     }
-    .cat-pill svg { width:15px; height:15px; stroke:currentColor; stroke-width:1.8; fill:none; flex-shrink:0; }
     .cat-pill:hover { border-color: var(--khabar-600); color: var(--khabar-600); }
+    .cat-pill .pill-icon { font-size: 16px; line-height: 1; }
 
+    /* Active pill — home */
     .cat-pill.active {
-      background: var(--khabar-600);
-      border-color: var(--khabar-600);
-      color: #fff;
+      background: #F9DCDC;
+      border: 2px solid var(--khabar-600);
+      color: var(--khabar-600);
+      font-weight: 700;
+      padding: 8px 16px;
     }
-    .cat-pill.active svg { stroke: #fff; }
+    .cat-pill.active svg { stroke: var(--khabar-600); }
+    .cat-home-icon { width:22px; height:22px; stroke:var(--khabar-600); stroke-width:1.8; fill:none; flex-shrink:0; }
 
     /* ─── Sub Nav ─────────────────────────────────────── */
     .sub-nav {
@@ -231,24 +239,24 @@
       overflow-x: auto;
       scrollbar-width: none;
       flex-shrink: 0;
-      border-bottom: 1.5px solid var(--line);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
     }
     .sub-nav::-webkit-scrollbar { display: none; }
     .sub-nav-inner {
       display: flex;
       align-items: center;
-      padding: 0 12px;
-      gap: 0;
+      padding: 0 6px;
     }
     .sub-tab {
-      padding: 10px 14px;
+      padding: 11px 12px;
       font-family: var(--font-deva);
       font-size: 13px;
       font-weight: 500;
       color: var(--ink-500);
       white-space: nowrap;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1.5px;
+      border-bottom: 2.5px solid transparent;
+      margin-bottom: -1px;
       transition: all var(--duration-sm);
       flex-shrink: 0;
     }
@@ -257,6 +265,14 @@
       color: var(--khabar-600);
       border-bottom-color: var(--khabar-600);
       font-weight: 700;
+    }
+    .sub-pipe {
+      color: var(--line-strong);
+      font-size: 16px;
+      font-weight: 300;
+      flex-shrink: 0;
+      user-select: none;
+      padding: 0 1px;
     }
 
     /* ─── Feed ────────────────────────────────────────── */
@@ -724,11 +740,8 @@
   <div class="status-bar">
     <span class="status-time">9:41</span>
     <span class="status-icons">
-      <!-- Signal -->
       <svg viewBox="0 0 24 24"><path d="M1 6l4.5 4.5M6 2l7 7M11.5 0l9 9M16 5l4 4" stroke-linecap="round"/></svg>
-      <!-- Wifi -->
       <svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01" stroke-linecap="round"/></svg>
-      <!-- Battery -->
       <svg viewBox="0 0 24 24"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2" stroke-linecap="round"/><rect x="3.5" y="8.5" width="13" height="7" rx="1" fill="currentColor" opacity="0.7"/></svg>
     </span>
   </div>
@@ -737,29 +750,33 @@
   <header class="app-header">
     <div class="app-header-row">
       <div class="header-left">
+        <!-- Hamburger -->
         <button class="icon-btn" aria-label="मेन्यू">
-          <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="18" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         </button>
+        <!-- HT Shield wordmark -->
         <a href="#" class="lh-wordmark" aria-label="लाइव हिन्दुस्तान होम">
-          <div class="lh-logo-circle">
-            <svg viewBox="0 0 24 24"><path d="M4 4h4v16H4zM16 4h4v16h-4zM8 12h8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
+          <!-- Shield SVG matching the app logo -->
+          <svg class="ht-shield" viewBox="0 0 30 34" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M15 1L2 6.5V16C2 23.5 7.8 30.4 15 33C22.2 30.4 28 23.5 28 16V6.5L15 1Z" fill="#B71C1C" stroke="#B71C1C" stroke-width="0.5"/>
+            <path d="M9 10h3v5h6v-5h3v14h-3v-6H12v6H9V10Z" fill="white"/>
+          </svg>
           <span class="lh-brand-text">हिन्दुस्तान</span>
         </a>
       </div>
       <div class="header-right">
-        <button class="icon-btn" aria-label="खोज">
-          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35" stroke-linecap="round"/></svg>
+        <!-- Square note/bookmark icon -->
+        <button class="icon-btn" aria-label="सहेजी खबरें">
+          <svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="12" y2="16"/></svg>
         </button>
-        <button class="icon-btn" aria-label="सहेजें">
-          <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-        </button>
+        <!-- Bell -->
         <button class="icon-btn" aria-label="सूचनाएँ">
           <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
         </button>
+        <!-- HT Coin badge -->
         <button class="coin-badge" aria-label="HT सिक्के: 354">
           <div class="coin-circle">
-            <svg viewBox="0 0 12 12" fill="white"><circle cx="6" cy="6" r="5"/><text x="6" y="9" text-anchor="middle" font-size="7" font-weight="700" fill="#D97706">H</text></svg>
+            <div class="coin-circle-inner">HT</div>
           </div>
           <span>354</span>
         </button>
@@ -769,43 +786,51 @@
 
   <!-- Category Nav Pills -->
   <nav class="category-nav" aria-label="श्रेणियाँ">
-    <button class="cat-pill active" aria-current="true">
-      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      होम
+    <!-- Active: Home only shows icon -->
+    <button class="cat-pill active" aria-current="true" aria-label="होम">
+      <svg class="cat-home-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
     </button>
     <button class="cat-pill">
-      <svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
       राज्य
+      <span class="pill-icon" aria-hidden="true">🗺️</span>
     </button>
     <button class="cat-pill">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
       क्रिकेट
+      <span class="pill-icon" aria-hidden="true">🏏</span>
     </button>
     <button class="cat-pill">
-      <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       धर्म
+      <span class="pill-icon" aria-hidden="true">🌙</span>
     </button>
     <button class="cat-pill">
-      <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
       करियर
+      <span class="pill-icon" aria-hidden="true">💼</span>
     </button>
     <button class="cat-pill">
-      <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
       बिजनेस
+      <span class="pill-icon" aria-hidden="true">📈</span>
     </button>
     <button class="cat-pill">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
       राशिफल
+      <span class="pill-icon" aria-hidden="true">⭐</span>
+    </button>
+    <button class="cat-pill">
+      मनोरंजन
+      <span class="pill-icon" aria-hidden="true">🎬</span>
     </button>
   </nav>
 
-  <!-- Sub Nav -->
+  <!-- Sub Nav with pipe separators -->
   <nav class="sub-nav" aria-label="उप-श्रेणियाँ">
     <div class="sub-nav-inner">
       <button class="sub-tab active" aria-current="true">ट्रेंडिंग</button>
+      <span class="sub-pipe" aria-hidden="true">|</span>
       <button class="sub-tab">आपके शहर की खबरें</button>
+      <span class="sub-pipe" aria-hidden="true">|</span>
       <button class="sub-tab">मनोरंजन</button>
+      <span class="sub-pipe" aria-hidden="true">|</span>
       <button class="sub-tab">बिजनेस</button>
+      <span class="sub-pipe" aria-hidden="true">|</span>
       <button class="sub-tab">विदेश</button>
     </div>
   </nav>
